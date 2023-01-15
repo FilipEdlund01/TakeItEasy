@@ -30,7 +30,7 @@ public class Main extends PApplet{
     private Hexan onHex1 = null;
     private boolean b = false;
     private Hexan mouseOverHexan = null;
-    PImage img;// obrazek jsem ukladal v editoru velikost widht: 400,  https://www.photopea.com/
+    PImage img;// obrazek jsem ukladal v editoru velikost widht: 400, height 267 https://www.photopea.com/
 
 
     public static void main(String[] args) {
@@ -88,7 +88,7 @@ public class Main extends PApplet{
 
 
 
-         background(255,255,255);
+         background(255,199,140);
 
 
          //  hexagon(500,600,Hexan.HEXAN_SIDE_SIZE);
