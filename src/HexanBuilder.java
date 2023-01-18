@@ -54,10 +54,53 @@ public class HexanBuilder {
         int index_line = 0;
         for (int i = 0; i < this.init_lines.length; i++) {
             Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+            Hexan.all_hexans[i] = new Hexan(200, 200, HexanBuilder.getInstance().init_lines[index_line]);
+
+
+
 
             index_line++;
         }
     }
+    public void printLines(){
+
+        for (int i = 0; i < this.init_lines.length; i++) {
+            for(int n = 0; n<=2;n++){
+                System.out.print(init_lines[i][n]);
+            }
+            System.out.println("       ");
+
+        }
+    }
+
+
 
 
     public int numberOfHexans(){

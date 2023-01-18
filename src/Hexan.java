@@ -29,4 +29,8 @@ public class Hexan {
     public int getY() {
         return y;
     }
+
+    public int[] getLines() {
+        return lines;
+    }
 }

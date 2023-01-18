@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Random;
 
 public class TEsting {
     private  static  int [][]field = new int[][] {new int[]{2}};
@@ -21,6 +22,13 @@ public class TEsting {
         }*/
 
         System.out.println(Arrays.toString(field[0]));
+        Random rn = new Random();
+
+
+            int i = rn.nextInt(0,27);
+            System.out.println(i);
+
+
     }
 
 

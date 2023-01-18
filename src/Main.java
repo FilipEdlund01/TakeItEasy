@@ -2,6 +2,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.event.MouseEvent;
 import java.lang.Math;
+import java.util.Random;
 
 
 public class Main extends PApplet{
@@ -41,14 +42,30 @@ public class Main extends PApplet{
         PApplet.main("Main");
     }
 
-    public void showAllHexans(){
+   /* public void showAllHexans(){
+        int n = 1;
         for (Hexan hexan : Hexan.all_hexans) {
 
-            hexagon(hexan.getX(), hexan.getY(), Hexan.HEXAN_SIDE_SIZE);  // Hexagon
+            hexagon(hexan.getX()+n, hexan.getY()+n, Hexan.HEXAN_SIDE_SIZE);  // Hexagon
+            n+=50;
         }
-       /* for (BoardHexan boardHexan : BoardHexan.all_BoardHexans){
-            hexagon(boardHexan.getX(),boardHexan.getY(),80);
-        }*/
+
+
+
+
+
+    }*/
+
+    public void generateHex(){
+        Random rn = new Random();
+
+
+        int n = rn.nextInt(0,Hexan.all_hexans.length);
+
+       Hexan hexan =  Hexan.all_hexans[0];
+       int[] a = hexan.getLines();
+       hexagon(hexan.getX()+300, hexan.getY()+300,Hexan.HEXAN_SIDE_SIZE);
+        System.out.println(a);
 
 
     }
@@ -78,6 +95,7 @@ public class Main extends PApplet{
     @Override
     public void setup() {
         img = loadImage("hex586.png");
+        generateHex();
 
     }
 
@@ -88,15 +106,18 @@ public class Main extends PApplet{
 
 
 
-         background(255,199,140);
+       //  background(255,199,140);
+         background(255,255,255);
 
 
          //  hexagon(500,600,Hexan.HEXAN_SIDE_SIZE);
          stroke(0);          // Setting the outline (stroke) to black
          fill(150);
          BoardHexagon(hexan1.getX(),hexan1.getY(),80);
+
          fill(255,255,255);
-         showAllHexans();
+         //showAllHexans();
+
          showImage();
 
 
@@ -133,6 +154,10 @@ public class Main extends PApplet{
         endShape(CLOSE);
     }
 
+    public void showNextHex(){
+
+    }
+
 
 
     @Override
@@ -158,7 +183,7 @@ public class Main extends PApplet{
             mouseOverHexan.setX(mouseX);
             mouseOverHexan.setY(mouseY);
             x = mouseX-200;
-            y = mouseY-130;
+            y = mouseY-135;
 
         }
     }
@@ -199,7 +224,7 @@ public class Main extends PApplet{
 
           }
 
-          if(clicked == false && b == true && mouseOverHexan !=null){
+          if(!clicked && b && mouseOverHexan !=null){
               hexan.setX((int) hexan1.getX());
               hexan.setY((int) hexan1.getY());
               x = (int)hexan1.getX()-200;
