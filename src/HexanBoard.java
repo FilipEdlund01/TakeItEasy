@@ -12,12 +12,10 @@ public class HexanBoard {
         this.isOccupied = false;
     }
 
-    @Override
     public void setX(int x) {
 
     }
 
-    @Override
     public void setY(int y) {
 
     }
@@ -26,7 +24,7 @@ public class HexanBoard {
         return this.x;
     }
 
-    @Override
+
     public int getY() {
         return this.y;
     }
