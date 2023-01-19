@@ -5,7 +5,7 @@ public class HexanCard {
     private HexanCard[] neighbours;
     public static HexanCard[] allHexans = new HexanCard[HexanBuilder.getInstance().numberOfHexans()];
     public static int HEXAN_SIDE_SIZE = 80;
-    public static int DISTANCE_BETWEEN_HEX = (int) Math.sqrt(Math.pow(HexanCard.HEXAN_SIDE_SIZE, 2) - Math.pow(HexanCard.HEXAN_SIDE_SIZE/2, 2));
+    public static int DISTANCE_BETWEEN_HEX = (int) Math.sqrt((Math.pow(HEXAN_SIDE_SIZE, 2) - Math.pow(HEXAN_SIDE_SIZE/2,2)));
 
     private int x;
     private int y;

@@ -63,18 +63,15 @@ public class Main extends PApplet{
        //  background(255,199,140);
          background(255,255,255);
 
-
-         //  hexagon(500,600,Hexan.HEXAN_SIDE_SIZE);
-
         // draw hex cards
          for (HexanCard hexan: HexanCard.allHexans) {
              showImage(hexan);
          }
 
          // draw board
-         for (HexanBoard[] hexanBoardRow: HexanBoard.hexanBoard) {
-             for (HexanBoard hexanBoard: hexanBoardRow) {
-                 hexagon(hexanBoard.getX(), hexanBoard.getY(), HexanCard.DISTANCE_BETWEEN_HEX);
+         for (HexanBoard[] hexanBoardColumn: HexanBoard.hexanBoard) {
+             for (HexanBoard hexanBoard: hexanBoardColumn) {
+                 hexagon(hexanBoard.getX(), hexanBoard.getY(), HexanCard.HEXAN_SIDE_SIZE);
              }
          }
     }

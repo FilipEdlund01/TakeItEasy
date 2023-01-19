@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 // Singleton
 public class HexanBuilder {
 
@@ -66,23 +68,28 @@ public class HexanBuilder {
             index_line++;
         }
     }
-    public HexanBoard[][] buildHexanBoard(){
-        HexanBoard[][] hexanBoard = new HexanBoard[HexanBuilder.getInstance().initLines.length][HexanBuilder.getInstance().initLines.length];
+    public void buildHexanBoard(){
 
+        final int yCordStart = Main.HEIGHT/3;
+        int xCords = Main.WIDTH/12;
+        int yCords = yCordStart;
 
-        int xCords = 0;
-        int yCords = 0;
+        int[] columnYMovement = new int[]{1, 2, 1, 0, -1}; // last is -1 to avoid index out of bounds
+        int[] boardColumnLength = new int[]{3, 4, 5, 4, 3};
+        HexanBoard.hexanBoard = new HexanBoard[boardColumnLength.length][];
 
-
-        for (int x = 0; x < HexanBuilder.getInstance().initLines.length; x++) {
-            for (int y = 0; y < HexanBuilder.getInstance().initLines.length; y++) {
-                hexanBoard[y][x] = new HexanBoard(xCords, yCords);
+        for (int x = 0; x < boardColumnLength.length; x++) {
+            HexanBoard[] column = new HexanBoard[boardColumnLength[x]];
+            for (int y = 0; y < boardColumnLength[x]; y++) {
+                column[y] = new HexanBoard(xCords, yCords);
                 yCords += HexanCard.DISTANCE_BETWEEN_HEX*2;
-
             }
-        }
+            HexanBoard.hexanBoard[x] = column;
 
-        return hexanBoard;
+            yCords = yCordStart - HexanCard.DISTANCE_BETWEEN_HEX * columnYMovement[x];
+
+            xCords+=HexanCard.HEXAN_SIDE_SIZE*1.5;
+        }
     }
 
     public void printLines(){

@@ -1,8 +1,10 @@
 import processing.core.PImage;
 
+import java.util.List;
+
 public class HexanBoard {
 
-    static HexanBoard[][] hexanBoard = new HexanBoard[HexanBuilder.getInstance().initLines.length][HexanBuilder.getInstance().initLines.length];
+    static HexanBoard[][] hexanBoard;
     int x;
     int y;
     boolean isOccupied;
