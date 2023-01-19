@@ -1,14 +1,13 @@
 import processing.core.PApplet;
-import processing.core.PImage;
 import processing.event.MouseEvent;
 import java.lang.Math;
-import java.util.Random;
 
 
 public class Main extends PApplet{
 
-    BoardHexan hexan1 =new BoardHexan(500,500,1);
-   public int x=0;
+    public static int WIDTH = 1600;
+    public static int HEIGHT = 800;
+    public int x=0;
     public int y=65;
 
     public int getX() {
@@ -28,56 +27,17 @@ public class Main extends PApplet{
     }
 
     private boolean clicked = false;
-    private Hexan onHex1 = null;
-    private boolean b = false;
-    private Hexan mouseOverHexan = null;
-    PImage img;// obrazek jsem ukladal v editoru velikost widht: 400, height 267 https://www.photopea.com/
+
+    private HexanCard mouseOverHexan = null;
 
 
     public static void main(String[] args) {
-
-
         HexanBuilder.getInstance().buildHexans();
+        HexanBuilder.getInstance().buildHexanBoard();
 
         PApplet.main("Main");
     }
 
-   /* public void showAllHexans(){
-        int n = 1;
-        for (Hexan hexan : Hexan.all_hexans) {
-
-            hexagon(hexan.getX()+n, hexan.getY()+n, Hexan.HEXAN_SIDE_SIZE);  // Hexagon
-            n+=50;
-        }
-
-
-
-
-
-    }*/
-
-    public void generateHex(){
-        Random rn = new Random();
-
-
-        int n = rn.nextInt(0,Hexan.all_hexans.length);
-
-       Hexan hexan =  Hexan.all_hexans[0];
-       int[] a = hexan.getLines();
-       hexagon(hexan.getX()+300, hexan.getY()+300,Hexan.HEXAN_SIDE_SIZE);
-        System.out.println(a);
-
-
-    }
-
-
-
-
-    /*public void drawEmptyBoard(){
-        for (BoardHexan boardHexan : BoardHexan.all_BoardHexans){
-            BoardHexagon(boardHexan.getX(),boardHexan.getY(),80);
-        }
-    }*/
 
     @Override
     public void windowResizable(boolean resizable) {
@@ -86,47 +46,40 @@ public class Main extends PApplet{
 
     @Override
     public void settings() {
-
-        size(1600, 800, "processing.awt.PGraphicsJava2D");
-
-
+        size(Main.WIDTH, Main.HEIGHT, "processing.awt.PGraphicsJava2D");
     }
 
     @Override
     public void setup() {
-        img = loadImage("hex586.png");
-        generateHex();
-
+        // load all images
+        for (HexanCard hexan: HexanCard.allHexans) {
+            hexan.setImage(loadImage(hexan.getImageString()));
+        }
     }
 
      @Override
     public void draw() {
-
-
-
-
 
        //  background(255,199,140);
          background(255,255,255);
 
 
          //  hexagon(500,600,Hexan.HEXAN_SIDE_SIZE);
-         stroke(0);          // Setting the outline (stroke) to black
-         fill(150);
-         BoardHexagon(hexan1.getX(),hexan1.getY(),80);
 
-         fill(255,255,255);
-         //showAllHexans();
+        // draw hex cards
+         for (HexanCard hexan: HexanCard.allHexans) {
+             showImage(hexan);
+         }
 
-         showImage();
-
-
-
-        point(200, 200);
-
+         // draw board
+         for (HexanBoard[] hexanBoardRow: HexanBoard.hexanBoard) {
+             for (HexanBoard hexanBoard: hexanBoardRow) {
+                 hexagon(hexanBoard.getX(), hexanBoard.getY(), HexanCard.DISTANCE_BETWEEN_HEX);
+             }
+         }
     }
-    public void showImage(){
-        image(img, x, y);
+    public void showImage(HexanCard hexan){
+        image(hexan.getImage(), hexan.getX(), hexan.getY());
     }
 
 
@@ -162,24 +115,24 @@ public class Main extends PApplet{
 
     @Override
     public void mouseMoved(MouseEvent event) {
-        checkColisoin();
+        //checkCollision();
         // cos p = b/c
         // a = cos b * c
 
 
        // float lengthY = cos(PI/6) * Hexan.HEXAN_SIDE_SIZE;
 
-        double lengthY = Math.sqrt((Hexan.HEXAN_SIDE_SIZE*Hexan.HEXAN_SIDE_SIZE)+(Hexan.HEXAN_SIDE_SIZE/2*Hexan.HEXAN_SIDE_SIZE/2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
-        for (Hexan hexan: Hexan.all_hexans) {
-            if(hexan.getX() + Hexan.HEXAN_SIDE_SIZE > mouseX && hexan.getY() +  lengthY  > mouseY &&
-                    hexan.getX() - Hexan.HEXAN_SIDE_SIZE < mouseX && hexan.getY() - lengthY < mouseY){
+        double lengthY = Math.sqrt((HexanCard.HEXAN_SIDE_SIZE* HexanCard.HEXAN_SIDE_SIZE)+(HexanCard.HEXAN_SIDE_SIZE/2* HexanCard.HEXAN_SIDE_SIZE/2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
+        for (HexanCard hexan: HexanCard.allHexans) {
+            if(hexan.getX() + HexanCard.HEXAN_SIDE_SIZE > mouseX && hexan.getY() +  lengthY  > mouseY &&
+                    hexan.getX() - HexanCard.HEXAN_SIDE_SIZE < mouseX && hexan.getY() - lengthY < mouseY){
                 mouseOverHexan = hexan;
             }else {
                 mouseOverHexan = null;
             }
         }
 
-        if(clicked ==true && mouseOverHexan != null){
+        if(clicked && mouseOverHexan != null){
             mouseOverHexan.setX(mouseX);
             mouseOverHexan.setY(mouseY);
             x = mouseX-200;
@@ -211,33 +164,21 @@ public class Main extends PApplet{
     //Hexan hexan = Hexan.all_hexans[2];
 
 
-    public void checkColisoin(){
-        double lengthY = Math.sqrt((Hexan.HEXAN_SIDE_SIZE*Hexan.HEXAN_SIDE_SIZE)+(Hexan.HEXAN_SIDE_SIZE/2*Hexan.HEXAN_SIDE_SIZE/2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
-        for (Hexan hexan: Hexan.all_hexans) {
-          if(hexan.getX()>hexan1.getX()-Hexan.HEXAN_SIDE_SIZE && hexan.getX()< hexan1.getX()+Hexan.HEXAN_SIDE_SIZE && hexan.getY()<hexan1.getY()+lengthY && hexan.getY()> hexan1.getY()-lengthY){
-              //System.out.println("Touching hexagon1");
-              b = true;
+//    public void checkCollision(){
+//        double lengthY = Math.sqrt((Hexan.HEXAN_SIDE_SIZE*Hexan.HEXAN_SIDE_SIZE)+(Hexan.HEXAN_SIDE_SIZE/2*Hexan.HEXAN_SIDE_SIZE/2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
+//        for (Hexan hexan: Hexan.allHexans) {
+//
+//          if(!clicked &&  hexan.getX()>hexan1.getX()-Hexan.HEXAN_SIDE_SIZE && hexan.getX()< hexan1.getX()+Hexan.HEXAN_SIDE_SIZE && hexan.getY()<hexan1.getY()+lengthY && hexan.getY()> hexan1.getY()-lengthY && mouseOverHexan !=null){
+//              hexan.setX((int) hexan1.getX());
+//              hexan.setY((int) hexan1.getY());
+//              x = (int)hexan1.getX()-200;
+//              y = (int)hexan1.getY()-130;
+//              clicked=false;
+//              mouseX = 100;
+//              mouseY = 100;
+//          }
+//        }
 
-          }else{
-
-              b = false;
-
-          }
-
-          if(!clicked && b && mouseOverHexan !=null){
-              hexan.setX((int) hexan1.getX());
-              hexan.setY((int) hexan1.getY());
-              x = (int)hexan1.getX()-200;
-              y = (int)hexan1.getY()-130;
-              clicked=false;
-              mouseX = 100;
-              mouseY = 100;
-          }
-
-
-        }
-
-    }
 }
 
 
