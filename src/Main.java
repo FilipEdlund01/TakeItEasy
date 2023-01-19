@@ -28,12 +28,12 @@ public class Main extends PApplet{
 
     private boolean clicked = false;
 
-    private HexanCard mouseOverHexan = null;
+    private HexCard mouseOverHexan = null;
 
 
     public static void main(String[] args) {
-        HexanBuilder.getInstance().buildHexans();
-        HexanBuilder.getInstance().buildHexanBoard();
+        HexBuilder.getInstance().buildHexans();
+        HexBuilder.getInstance().buildHexBoard();
 
         PApplet.main("Main");
     }
@@ -52,7 +52,7 @@ public class Main extends PApplet{
     @Override
     public void setup() {
         // load all images
-        for (HexanCard hexan: HexanCard.allHexans) {
+        for (HexCard hexan: HexCard.allHexans) {
             hexan.setImage(loadImage(hexan.getImageString()));
         }
     }
@@ -64,19 +64,37 @@ public class Main extends PApplet{
          background(255,255,255);
 
         // draw hex cards
-         for (HexanCard hexan: HexanCard.allHexans) {
+         for (HexCard hexan: HexCard.allHexans) {
              showImage(hexan);
          }
 
          // draw board
-         for (HexanBoard[] hexanBoardColumn: HexanBoard.hexanBoard) {
-             for (HexanBoard hexanBoard: hexanBoardColumn) {
-                 hexagon(hexanBoard.getX(), hexanBoard.getY(), HexanCard.HEXAN_SIDE_SIZE);
+         for (HexBoard[] hexanBoardColumn: HexBoard.hexBoard) {
+             for (HexBoard hexanBoard: hexanBoardColumn) {
+                 this.fillWithHexColor(hexanBoard);
+                 hexagon(hexanBoard.getXCords(), hexanBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
              }
+         };
+         HexBoard hex1 = HexBoard.hexBoard[3][2];
+         HexBoard hex2 = HexBoard.hexBoard[3][3];
+
+
+        for( HexBoard hexBoard: hex1.neighbours){
+            if(hexBoard == null) continue;
+            fill(255,0,0);hexagon(hexBoard.getXCords(), hexBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
+
+        }
+         for( HexBoard hexBoard: hex2.neighbours){
+             if(hexBoard == null) continue;
+             fill(255,0,0);hexagon(hexBoard.getXCords(), hexBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
+
          }
-    }
-    public void showImage(HexanCard hexan){
-        image(hexan.getImage(), hexan.getX(), hexan.getY());
+         fill(100,0,0);hexagon(hex1.getXCords(), hex1.getYCords(), HexCard.HEX_SIDE_SIZE);
+         fill(100,0,100);hexagon(hex2.getXCords(), hex2.getYCords(), HexCard.HEX_SIDE_SIZE);
+
+     }
+    public void showImage(HexCard hexan){
+        image(hexan.getImage(), hexan.getXCords(), hexan.getYCords());
     }
 
 
@@ -119,10 +137,10 @@ public class Main extends PApplet{
 
        // float lengthY = cos(PI/6) * Hexan.HEXAN_SIDE_SIZE;
 
-        double lengthY = Math.sqrt((HexanCard.HEXAN_SIDE_SIZE* HexanCard.HEXAN_SIDE_SIZE)+(HexanCard.HEXAN_SIDE_SIZE/2* HexanCard.HEXAN_SIDE_SIZE/2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
-        for (HexanCard hexan: HexanCard.allHexans) {
-            if(hexan.getX() + HexanCard.HEXAN_SIDE_SIZE > mouseX && hexan.getY() +  lengthY  > mouseY &&
-                    hexan.getX() - HexanCard.HEXAN_SIDE_SIZE < mouseX && hexan.getY() - lengthY < mouseY){
+        double lengthY = Math.sqrt((HexCard.HEX_SIDE_SIZE * HexCard.HEX_SIDE_SIZE)+(HexCard.HEX_SIDE_SIZE /2* HexCard.HEX_SIDE_SIZE /2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
+        for (HexCard hexan: HexCard.allHexans) {
+            if(hexan.getXCords() + HexCard.HEX_SIDE_SIZE > mouseX && hexan.getYCords() +  lengthY  > mouseY &&
+                    hexan.getXCords() - HexCard.HEX_SIDE_SIZE < mouseX && hexan.getYCords() - lengthY < mouseY){
                 mouseOverHexan = hexan;
             }else {
                 mouseOverHexan = null;
@@ -130,8 +148,8 @@ public class Main extends PApplet{
         }
 
         if(clicked && mouseOverHexan != null){
-            mouseOverHexan.setX(mouseX);
-            mouseOverHexan.setY(mouseY);
+            mouseOverHexan.setXCords(mouseX);
+            mouseOverHexan.setYCords(mouseY);
             x = mouseX-200;
             y = mouseY-135;
 
@@ -156,6 +174,11 @@ public class Main extends PApplet{
         System.out.println("cliked");
         System.out.println("kokot");
         clicked = !clicked;
+    }
+
+    public void fillWithHexColor(HexBoard boardHex){
+        int[] rgbColor = boardHex.getColor();
+        fill(rgbColor[0], rgbColor[1], rgbColor[2]);
     }
 
     //Hexan hexan = Hexan.all_hexans[2];
