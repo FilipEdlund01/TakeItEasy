@@ -9,6 +9,13 @@ public class HexBoard extends Hex{
 
     int[] color;
 
+    // index
+    final static int TOP_NEIGHBOUR = 0;
+    final static int BOTTOM_NEIGHBOUR = 1;
+    final static int RIGHT_TOP_NEIGHBOUR = 2;
+    final static int RIGHT_BOTTOM_NEIGHBOUR = 3;
+    final static int LEFT_TOP_NEIGHBOUR = 4;
+    final static int LEFT_BOTTOM_NEIGHBOUR = 5;
     HexBoard[] neighbours = new HexBoard[6];
 
 

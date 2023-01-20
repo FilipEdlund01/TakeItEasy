@@ -1,6 +1,6 @@
 // Singleton
 public class HexBuilder {
-
+    // singleton
     private final static HexBuilder hexBuilderInstance = new HexBuilder();
 
     public int[][] initLines;
@@ -77,27 +77,28 @@ public class HexBuilder {
             for (int y = 0; y < HexBoard.hexBoard[x].length; y++) {
                 HexBoard hexBoard = HexBoard.getHexanBoard(x, y);
 
-                HexBoard.hexBoard[x][y].neighbours[0] = HexBoard.getHexanBoard(x, y - 1); // bottom left
-                HexBoard.hexBoard[x][y].neighbours[1] = HexBoard.getHexanBoard(x, y + 1); // bottom right
+                HexBoard.hexBoard[x][y].neighbours[0] = HexBoard.getHexanBoard(x, y - 1); // top
+                HexBoard.hexBoard[x][y].neighbours[1] = HexBoard.getHexanBoard(x, y + 1); // bottom
 
 
                 if(x < 2) {
-                    HexBoard.hexBoard[x][y].neighbours[2] = HexBoard.getHexanBoard(x + 1, y); // top right
-                    HexBoard.hexBoard[x][y].neighbours[3] = HexBoard.getHexanBoard(x + 1, y + 1); // top left
-                    HexBoard.hexBoard[x][y].neighbours[4] = HexBoard.getHexanBoard(x - 1, y - 1); // top right
-                    HexBoard.hexBoard[x][y].neighbours[5] = HexBoard.getHexanBoard(x - 1, y); // top left
+                    HexBoard.hexBoard[x][y].neighbours[2] = HexBoard.getHexanBoard(x + 1, y); // right top
+                    HexBoard.hexBoard[x][y].neighbours[3] = HexBoard.getHexanBoard(x + 1, y + 1); // right bottom
+                    HexBoard.hexBoard[x][y].neighbours[4] = HexBoard.getHexanBoard(x - 1, y - 1); // left top
+                    HexBoard.hexBoard[x][y].neighbours[5] = HexBoard.getHexanBoard(x - 1, y); // left bottom
 
                 }else if(x == 2){
-                    HexBoard.hexBoard[x][y].neighbours[2] = HexBoard.getHexanBoard(x + 1, y - 1); // top right
+                    HexBoard.hexBoard[x][y].neighbours[2] = HexBoard.getHexanBoard(x + 1, y - 1);
                     HexBoard.hexBoard[x][y].neighbours[3] = HexBoard.getHexanBoard(x + 1, y);
-                    HexBoard.hexBoard[x][y].neighbours[4] = HexBoard.getHexanBoard(x - 1, y - 1); // top right
+                    HexBoard.hexBoard[x][y].neighbours[4] = HexBoard.getHexanBoard(x - 1, y - 1);
                     HexBoard.hexBoard[x][y].neighbours[5] = HexBoard.getHexanBoard(x - 1, y);
 
+
                 }else{
-                    HexBoard.hexBoard[x][y].neighbours[2] = HexBoard.getHexanBoard(x + 1, y); // top right
-                    HexBoard.hexBoard[x][y].neighbours[3] = HexBoard.getHexanBoard(x + 1, y - 1); // top left
-                    HexBoard.hexBoard[x][y].neighbours[4] = HexBoard.getHexanBoard(x - 1, y + 1); // top right
-                    HexBoard.hexBoard[x][y].neighbours[5] = HexBoard.getHexanBoard(x - 1, y); // t
+                    HexBoard.hexBoard[x][y].neighbours[2] = HexBoard.getHexanBoard(x + 1, y - 1);
+                    HexBoard.hexBoard[x][y].neighbours[3] = HexBoard.getHexanBoard(x + 1, y);
+                    HexBoard.hexBoard[x][y].neighbours[4] = HexBoard.getHexanBoard(x - 1, y);
+                    HexBoard.hexBoard[x][y].neighbours[5] = HexBoard.getHexanBoard(x - 1, y + 1);
                 }
             }
 
@@ -124,7 +125,7 @@ public class HexBuilder {
 
             yCords = yCordStart - HexCard.DISTANCE_BETWEEN_HEX * columnYMovement[x];
 
-            xCords += HexCard.HEX_SIDE_SIZE *1.5;
+            xCords += HexCard.HEX_SIDE_SIZE * 1.5;
         }
 
         this.addNeighborsToHexBoard();
