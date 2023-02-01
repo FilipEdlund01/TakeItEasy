@@ -108,7 +108,7 @@ public class HexBuilder {
     public void buildHexBoard(){
 
         final int yCordStart = Main.HEIGHT/3;
-        int xCords = Main.WIDTH/12;
+        int xCords = Main.WIDTH/2;
         int yCords = yCordStart;
 
         int[] columnYMovement = new int[]{1, 2, 1, 0, -1}; // last is -1 to avoid index out of bounds
@@ -116,10 +116,13 @@ public class HexBuilder {
         HexBoard.hexBoard = new HexBoard[boardColumnLength.length][];
 
         for (int x = 0; x < boardColumnLength.length; x++) {
-            HexBoard[] column = new HexBoard[boardColumnLength[x]];
+            HexBoard[] column = new HexBoard[boardColumnLength[x]]; //
+
             for (int y = 0; y < boardColumnLength[x]; y++) {
                 column[y] = new HexBoard(x, y, xCords, yCords);
-                yCords += HexCard.DISTANCE_BETWEEN_HEX*2;
+               yCords += HexCard.DISTANCE_BETWEEN_HEX*2;
+
+                //yCords += (HexCard.HEX_SIDE_SIZE-10)*2;
             }
             HexBoard.hexBoard[x] = column;
 

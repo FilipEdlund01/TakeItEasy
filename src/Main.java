@@ -1,9 +1,22 @@
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 import java.lang.Math;
+import java.util.Random;
 
 
 public class Main extends PApplet{
+
+    public boolean b = false;
+    public int randomInt =1;
+
+    public int getRandomInt() {
+        return randomInt;
+    }
+
+    public void setRandomInt(int randomInt) {
+        this.randomInt = randomInt;
+    }
+
 
     public static int WIDTH = 1600;
     public static int HEIGHT = 800;
@@ -35,6 +48,7 @@ public class Main extends PApplet{
         HexBuilder.getInstance().buildHexans();
         HexBuilder.getInstance().buildHexBoard();
 
+
         PApplet.main("Main");
     }
 
@@ -52,9 +66,13 @@ public class Main extends PApplet{
     @Override
     public void setup() {
         // load all images
-        for (HexCard hexan: HexCard.allHexans) {
+      /*  for (HexCard hexan: HexCard.allHexans) {
             hexan.setImage(loadImage(hexan.getImageString()));
-        }
+        }*/
+
+
+
+
     }
 
      @Override
@@ -64,9 +82,17 @@ public class Main extends PApplet{
          background(255,255,255);
 
         // draw hex cards
-         for (HexCard hexan: HexCard.allHexans) {
+       /*  for (HexCard hexan: HexCard.allHexans) {
              showImage(hexan);
+         }*/
+         if(!b) {
+             System.out.println("Mrdani Cecku");
+             generateCard();
+
          }
+
+
+
 
          // draw board
          for (HexBoard[] hexanBoardColumn: HexBoard.hexBoard) {
@@ -77,7 +103,8 @@ public class Main extends PApplet{
          };
          HexBoard hex1 = HexBoard.hexBoard[3][2];
          HexBoard hex2 = HexBoard.hexBoard[2][2];
-         HexBoard hexBoard = hex2.neighbours[HexBoard.RIGHT_BOTTOM_NEIGHBOUR];
+         HexBoard hexBoard = hex2.neighbours[HexBoard.RIGHT_TOP_NEIGHBOUR];
+
 
          fill(255,0,0);hexagon(hex2.getXCords(), hex2.getYCords(), HexCard.HEX_SIDE_SIZE);
          fill(100,0,100);hexagon(hexBoard.getXCords(), hexBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
@@ -101,20 +128,9 @@ public class Main extends PApplet{
         }
         endShape(CLOSE);
     }
-    void BoardHexagon(float x, float y, float radius) {
-        float angle = TWO_PI / 6;
-        beginShape();
-        for (float a = 0; a < TWO_PI; a += angle) {
-            float sx = x + cos(a) * radius;
-            float sy = y + sin(a) * radius;
-            vertex(sx, sy);
-        }
-        endShape(CLOSE);
-    }
 
-    public void showNextHex(){
 
-    }
+
 
 
 
@@ -126,8 +142,9 @@ public class Main extends PApplet{
 
 
        // float lengthY = cos(PI/6) * Hexan.HEXAN_SIDE_SIZE;
+        int a = HexCard.HEX_SIDE_SIZE;
 
-        double lengthY = Math.sqrt((HexCard.HEX_SIDE_SIZE * HexCard.HEX_SIDE_SIZE)+(HexCard.HEX_SIDE_SIZE /2* HexCard.HEX_SIDE_SIZE /2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
+        double lengthY = Math.sqrt((a*a)+(a/2*a/2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
         for (HexCard hexan: HexCard.allHexans) {
             if(hexan.getXCords() + HexCard.HEX_SIDE_SIZE > mouseX && hexan.getYCords() +  lengthY  > mouseY &&
                     hexan.getXCords() - HexCard.HEX_SIDE_SIZE < mouseX && hexan.getYCords() - lengthY < mouseY){
@@ -157,6 +174,20 @@ public class Main extends PApplet{
     public void fillWithHexColor(HexBoard boardHex){
         int[] rgbColor = boardHex.getColor();
         fill(rgbColor[0], rgbColor[1], rgbColor[2]);
+    }
+
+
+    public  void generateCard(){
+        int min = 0;
+        int max = HexCard.allHexans.length;
+        Random random = new Random();
+        int randomNumber = random.nextInt((max - min) + 1) + min;
+        //showImage(HexCard.allHexans[randomInt]);
+
+
+        //HexCard.allHexans[randomI].setImage(loadImage(HexCard.allHexans[randomInt].getImageString()));
+
+        b=true;
     }
 
 }
