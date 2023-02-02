@@ -1,22 +1,20 @@
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 import java.lang.Math;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 
 public class Main extends PApplet{
 
-    public boolean b = false;
-    public int randomInt =1;
+    public static boolean b = false;
+    static int randomInt;
 
-    public int getRandomInt() {
-        return randomInt;
-    }
+    public boolean[] forbidenNumbers = new boolean[27];
 
-    public void setRandomInt(int randomInt) {
-        this.randomInt = randomInt;
-    }
-
+//    public List<> forbidenNumbers = ArrayList<>()
 
     public static int WIDTH = 1600;
     public static int HEIGHT = 800;
@@ -45,12 +43,14 @@ public class Main extends PApplet{
 
 
     public static void main(String[] args) {
+
         HexBuilder.getInstance().buildHexans();
         HexBuilder.getInstance().buildHexBoard();
 
 
         PApplet.main("Main");
     }
+
 
 
     @Override
@@ -65,10 +65,13 @@ public class Main extends PApplet{
 
     @Override
     public void setup() {
+        Arrays.fill(forbidenNumbers,true);
         // load all images
-      /*  for (HexCard hexan: HexCard.allHexans) {
+       for (HexCard hexan: HexCard.allHexans) {
             hexan.setImage(loadImage(hexan.getImageString()));
-        }*/
+        }
+       generateCard();
+
 
 
 
@@ -78,18 +81,23 @@ public class Main extends PApplet{
      @Override
     public void draw() {
 
+
        //  background(255,199,140);
          background(255,255,255);
 
         // draw hex cards
-       /*  for (HexCard hexan: HexCard.allHexans) {
+        /*for (HexCard hexan: HexCard.allHexans) {
              showImage(hexan);
          }*/
-         if(!b) {
-             System.out.println("Mrdani Cecku");
-             generateCard();
 
-         }
+      //   showImage(HexCard.allHexans[randomInt]);
+
+
+
+
+             showImage(HexCard.allHexans[randomInt]);
+
+
 
 
 
@@ -169,6 +177,7 @@ public class Main extends PApplet{
         System.out.println("cliked");
         System.out.println("kokot");
         clicked = !clicked;
+        generateCard();
     }
 
     public void fillWithHexColor(HexBoard boardHex){
@@ -177,15 +186,22 @@ public class Main extends PApplet{
     }
 
 
+
     public  void generateCard(){
         int min = 0;
-        int max = HexCard.allHexans.length;
+        int max = HexCard.allHexans.length-1;
+
+
         Random random = new Random();
-        int randomNumber = random.nextInt((max - min) + 1) + min;
+        randomInt=(random.nextInt((max - min) + 1) + min);
+
+        System.out.println(forbidenNumbers[randomInt]);
+        //setRandomInt(random.nextInt((max - min) + 1) + min);
+
+
         //showImage(HexCard.allHexans[randomInt]);
 
 
-        //HexCard.allHexans[randomI].setImage(loadImage(HexCard.allHexans[randomInt].getImageString()));
 
         b=true;
     }
