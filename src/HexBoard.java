@@ -14,8 +14,7 @@ public class HexBoard extends Hex{
     final static int BOTTOM_NEIGHBOUR = 1;
     final static int RIGHT_TOP_NEIGHBOUR = 2;
     final static int RIGHT_BOTTOM_NEIGHBOUR = 3;
-    final static int LEFT_TOP_NEIGHBOUR = 4;
-    final static int LEFT_BOTTOM_NEIGHBOUR = 5;
+//    final static int LEFT_TOP_NEIGHBOUR = 4;
     HexBoard[] neighbours = new HexBoard[6];
 
 

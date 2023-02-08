@@ -8,6 +8,8 @@ import java.util.Random;
 
 
 public class Main extends PApplet{
+    private int boardX;
+    private int boardY;
 
     public static boolean b = false;
     static int randomInt;
@@ -38,6 +40,11 @@ public class Main extends PApplet{
     }
 
     private boolean clicked = false;
+
+    private boolean cardOverBoard = false;
+
+    double lengthY = Math.sqrt(( HexCard.HEX_SIDE_SIZE* HexCard.HEX_SIDE_SIZE)+(HexCard.HEX_SIDE_SIZE/2* HexCard.HEX_SIDE_SIZE/2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
+
 
     private HexCard mouseOverHexan = null;
 
@@ -114,8 +121,25 @@ public class Main extends PApplet{
          HexBoard hexBoard = hex2.neighbours[HexBoard.RIGHT_TOP_NEIGHBOUR];
 
 
-         fill(255,0,0);hexagon(hex2.getXCords(), hex2.getYCords(), HexCard.HEX_SIDE_SIZE);
-         fill(100,0,100);hexagon(hexBoard.getXCords(), hexBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
+        /* fill(255,0,0);hexagon(hex2.getXCords(), hex2.getYCords(), HexCard.HEX_SIDE_SIZE);
+         fill(100,0,100);hexagon(hexBoard.getXCords(), hexBoard.getYCords(), HexCard.HEX_SIDE_SIZE);*/
+
+         if(clicked && mouseOverHexan!= null){
+             for (int i =0; i < HexBoard.hexBoard.length;i++){
+                 for (int j =0; j < HexBoard.hexBoard[i].length;j++){
+
+                     if(HexBoard.hexBoard[i][j].getXCords() + HexCard.HEX_SIDE_SIZE > mouseX && HexBoard.hexBoard[i][j].getYCords() +  lengthY  > mouseY &&
+                             HexBoard.hexBoard[i][j].getXCords() - HexCard.HEX_SIDE_SIZE < mouseX && HexBoard.hexBoard[i][j].getYCords() - lengthY < mouseY){
+                         fill(255,0,0);hexagon(HexBoard.hexBoard[i][j].getXCords(),HexBoard.hexBoard[i][j].getYCords(), HexCard.HEX_SIDE_SIZE);
+                         cardOverBoard =true;
+                         boardX=HexBoard.hexBoard[i][j].getXCords();
+                         boardY=HexBoard.hexBoard[i][j].getYCords();
+                     }else{
+                         cardOverBoard= false;
+                     }
+                 }
+             }
+         }
          showImage(HexCard.allHexans[randomInt]);
 
      }
@@ -158,12 +182,11 @@ public class Main extends PApplet{
 
 
 
-        double lengthY = Math.sqrt((a*a)+(a/2*a/2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
         // trida HexCard extenduje Hex
         if((HexCard.allHexans[randomInt].getXCords()+xPixelsofImage) + HexCard.HEX_SIDE_SIZE > mouseX && (HexCard.allHexans[randomInt].getYCords()+yPixelsofImge)+  lengthY  > mouseY &&
                 (HexCard.allHexans[randomInt].getXCords()+xPixelsofImage) - HexCard.HEX_SIDE_SIZE < mouseX && (HexCard.allHexans[randomInt].getYCords()+yPixelsofImge) - lengthY < mouseY){
             mouseOverHexan = HexCard.allHexans[randomInt];
-            System.out.println("over");
+           // System.out.println("over");
         }else {
             mouseOverHexan = null;
         }
@@ -185,10 +208,11 @@ public class Main extends PApplet{
             HexCard.allHexans[randomInt].setYCords(mouseY);*/
 
 
-            mouseOverHexan.setXCords(mouseX-xPixelsofImage);
+            mouseOverHexan.setXCords(mouseX-xPixelsofImage);//aby se mys vycentrovala na prostredek obrazku
             mouseOverHexan.setYCords(mouseY-yPixelsofImge);
-           /* x = mouseX-200;
-            y = mouseY-135;*/
+
+
+
 
         }
     }
@@ -197,7 +221,15 @@ public class Main extends PApplet{
     public void mousePressed() {
 
 
+
+
+
+
         clicked = !clicked;
+        if(cardOverBoard){
+            HexCard.allHexans[randomInt].setXCords(boardX);
+            HexCard.allHexans[randomInt].setYCords(boardY);
+        }
         //generateCard();
     }
 
