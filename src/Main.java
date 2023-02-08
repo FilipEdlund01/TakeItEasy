@@ -95,7 +95,7 @@ public class Main extends PApplet{
 
 
 
-             showImage(HexCard.allHexans[randomInt]);
+
 
 
 
@@ -116,10 +116,11 @@ public class Main extends PApplet{
 
          fill(255,0,0);hexagon(hex2.getXCords(), hex2.getYCords(), HexCard.HEX_SIDE_SIZE);
          fill(100,0,100);hexagon(hexBoard.getXCords(), hexBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
+         showImage(HexCard.allHexans[randomInt]);
 
      }
     public void showImage(HexCard hexan){
-        image(hexan.getImage(), hexan.getXCords(), hexan.getYCords());
+        image(hexan.getImage(),HexCard.allHexans[randomInt].getXCords() , HexCard.allHexans[randomInt].getYCords());
     }
 
 
@@ -152,21 +153,42 @@ public class Main extends PApplet{
        // float lengthY = cos(PI/6) * Hexan.HEXAN_SIDE_SIZE;
         int a = HexCard.HEX_SIDE_SIZE;
 
+        int xPixelsofImage=160/2;
+        int yPixelsofImge=150/2;
+
+
+
         double lengthY = Math.sqrt((a*a)+(a/2*a/2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
-        for (HexCard hexan: HexCard.allHexans) {
+        // trida HexCard extenduje Hex
+        if((HexCard.allHexans[randomInt].getXCords()+xPixelsofImage) + HexCard.HEX_SIDE_SIZE > mouseX && (HexCard.allHexans[randomInt].getYCords()+yPixelsofImge)+  lengthY  > mouseY &&
+                (HexCard.allHexans[randomInt].getXCords()+xPixelsofImage) - HexCard.HEX_SIDE_SIZE < mouseX && (HexCard.allHexans[randomInt].getYCords()+yPixelsofImge) - lengthY < mouseY){
+            mouseOverHexan = HexCard.allHexans[randomInt];
+            System.out.println("over");
+        }else {
+            mouseOverHexan = null;
+        }
+
+       /* for (HexCard hexan: HexCard.allHexans) {
             if(hexan.getXCords() + HexCard.HEX_SIDE_SIZE > mouseX && hexan.getYCords() +  lengthY  > mouseY &&
                     hexan.getXCords() - HexCard.HEX_SIDE_SIZE < mouseX && hexan.getYCords() - lengthY < mouseY){
                 mouseOverHexan = hexan;
+                System.out.println("over");
             }else {
                 mouseOverHexan = null;
             }
-        }
+        }*/
+
+
 
         if(clicked && mouseOverHexan != null){
-            mouseOverHexan.setXCords(mouseX);
-            mouseOverHexan.setYCords(mouseY);
-            x = mouseX-200;
-            y = mouseY-135;
+           /* HexCard.allHexans[randomInt].setXCords(mouseX);
+            HexCard.allHexans[randomInt].setYCords(mouseY);*/
+
+
+            mouseOverHexan.setXCords(mouseX-xPixelsofImage);
+            mouseOverHexan.setYCords(mouseY-yPixelsofImge);
+           /* x = mouseX-200;
+            y = mouseY-135;*/
 
         }
     }
@@ -174,10 +196,9 @@ public class Main extends PApplet{
     @Override
     public void mousePressed() {
 
-        System.out.println("cliked");
-        System.out.println("kokot");
+
         clicked = !clicked;
-        generateCard();
+        //generateCard();
     }
 
     public void fillWithHexColor(HexBoard boardHex){
@@ -190,20 +211,20 @@ public class Main extends PApplet{
     public  void generateCard(){
         int min = 0;
         int max = HexCard.allHexans.length-1;
+        boolean ocupied = true;
+
+        while(ocupied){
+            Random random = new Random();
+            int r=(random.nextInt((max - min) + 1) + min);
+            if(forbidenNumbers[r]){
+                randomInt = r;
+                forbidenNumbers[r]=false;
+                ocupied=false;
+            }
+        }
 
 
-        Random random = new Random();
-        randomInt=(random.nextInt((max - min) + 1) + min);
 
-        System.out.println(forbidenNumbers[randomInt]);
-        //setRandomInt(random.nextInt((max - min) + 1) + min);
-
-
-        //showImage(HexCard.allHexans[randomInt]);
-
-
-
-        b=true;
     }
 
 }

@@ -33,4 +33,19 @@ public class HexCard extends Hex {
         return this.image;
     }
 
+    /*public int getxCords() {
+        return xCords;
+    }
+
+    public int getyCords() {
+        return yCords;
+    }
+
+    public void setxCords(int xCords) {
+        this.xCords = xCords;
+    }
+
+    public void setyCords(int yCords) {
+        this.yCords = yCords;
+    }*/
 }
