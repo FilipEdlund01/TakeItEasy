@@ -48,6 +48,13 @@ public class Main extends PApplet{
 
     private HexCard mouseOverHexan = null;
 
+    public boolean yes;
+
+    public int n = 0;
+    int xPixelsofImage=160/2;
+    int yPixelsofImge=150/2;
+
+
 
     public static void main(String[] args) {
 
@@ -124,25 +131,86 @@ public class Main extends PApplet{
         /* fill(255,0,0);hexagon(hex2.getXCords(), hex2.getYCords(), HexCard.HEX_SIDE_SIZE);
          fill(100,0,100);hexagon(hexBoard.getXCords(), hexBoard.getYCords(), HexCard.HEX_SIDE_SIZE);*/
 
-         if(clicked && mouseOverHexan!= null){
+       /*  if(clicked && mouseOverHexan!= null){
              for (int i =0; i < HexBoard.hexBoard.length;i++){
                  for (int j =0; j < HexBoard.hexBoard[i].length;j++){
 
                      if(HexBoard.hexBoard[i][j].getXCords() + HexCard.HEX_SIDE_SIZE > mouseX && HexBoard.hexBoard[i][j].getYCords() +  lengthY  > mouseY &&
                              HexBoard.hexBoard[i][j].getXCords() - HexCard.HEX_SIDE_SIZE < mouseX && HexBoard.hexBoard[i][j].getYCords() - lengthY < mouseY){
                          fill(255,0,0);hexagon(HexBoard.hexBoard[i][j].getXCords(),HexBoard.hexBoard[i][j].getYCords(), HexCard.HEX_SIDE_SIZE);
-                         cardOverBoard =true;
+                         cardOverBoard=true;
+                         //System.out.println("over");
                          boardX=HexBoard.hexBoard[i][j].getXCords();
                          boardY=HexBoard.hexBoard[i][j].getYCords();
-                     }else{
-                         cardOverBoard= false;
+                     } else if(!cardOverBoard){
+                         System.out.println("not over");
+
+                       //  cardOverBoard=false;
                      }
                  }
              }
-         }
+         }*/
+         checkHexOverBoard();
+
+
+        /* switch (n) {
+             case 0:
+                 System.out.println("Nothing");
+
+                 break;
+             case 1:
+                 System.out.println("not over");
+
+                 break;
+             case 2:
+                 System.out.println("over hex");
+
+                 break;
+         }*/
+
+
+
+
          showImage(HexCard.allHexans[randomInt]);
 
      }
+
+     public void checkHexOverBoard() {
+
+
+         if (clicked && mouseOverHexan != null) {
+             n = 1;
+             //yes = false;
+             for (int i = 0; i < HexBoard.hexBoard.length; i++) {
+                 for (int j = 0; j < HexBoard.hexBoard[i].length; j++) {
+
+                     if (HexBoard.hexBoard[i][j].getXCords() + HexCard.HEX_SIDE_SIZE > mouseX && HexBoard.hexBoard[i][j].getYCords() + lengthY > mouseY &&
+                             HexBoard.hexBoard[i][j].getXCords() - HexCard.HEX_SIDE_SIZE < mouseX && HexBoard.hexBoard[i][j].getYCords() - lengthY < mouseY) {
+                         fill(255, 0, 0);
+                         hexagon(HexBoard.hexBoard[i][j].getXCords(), HexBoard.hexBoard[i][j].getYCords(), HexCard.HEX_SIDE_SIZE);
+
+                         // cardOverBoard=true;
+                         //System.out.println("over");
+                         boardX = HexBoard.hexBoard[i][j].getXCords();
+                         boardY = HexBoard.hexBoard[i][j].getYCords();
+                         yes = true;
+                         n = 2;
+
+                     }
+                 }
+             }
+         } else {
+             n = 0;
+         }
+
+
+
+
+
+
+
+
+    }
     public void showImage(HexCard hexan){
         image(hexan.getImage(),HexCard.allHexans[randomInt].getXCords() , HexCard.allHexans[randomInt].getYCords());
     }
@@ -177,8 +245,7 @@ public class Main extends PApplet{
        // float lengthY = cos(PI/6) * Hexan.HEXAN_SIDE_SIZE;
         int a = HexCard.HEX_SIDE_SIZE;
 
-        int xPixelsofImage=160/2;
-        int yPixelsofImge=150/2;
+
 
 
 
@@ -215,21 +282,27 @@ public class Main extends PApplet{
 
 
         }
+
     }
 
     @Override
     public void mousePressed() {
 
 
+      /*  if(cardOverBoard){
 
+        }*/
+        if(n==2){
+            System.out.println("ahoj");
+            HexCard.allHexans[randomInt].setXCords(boardX-xPixelsofImage);
+            HexCard.allHexans[randomInt].setYCords(boardY-yPixelsofImge);
+
+        }
 
 
 
         clicked = !clicked;
-        if(cardOverBoard){
-            HexCard.allHexans[randomInt].setXCords(boardX);
-            HexCard.allHexans[randomInt].setYCords(boardY);
-        }
+
         //generateCard();
     }
 
