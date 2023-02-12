@@ -15,33 +15,19 @@ public class Main extends PApplet{
     static int randomInt;
 
     public boolean[] forbidenNumbers = new boolean[27];
+    ArrayList<HexCard> listOfHexCards = new ArrayList<HexCard>();
 
-//    public List<> forbidenNumbers = ArrayList<>()
+
 
     public static int WIDTH = 1600;
     public static int HEIGHT = 800;
-    public int x=0;
-    public int y=65;
 
-    public int getX() {
-        return x;
-    }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 
     private boolean clicked = false;
 
-    private boolean cardOverBoard = false;
+
 
     double lengthY = Math.sqrt(( HexCard.HEX_SIDE_SIZE* HexCard.HEX_SIDE_SIZE)+(HexCard.HEX_SIDE_SIZE/2* HexCard.HEX_SIDE_SIZE/2)); // pocitani vzdalenosti od stredu k hrane pomoci pythagora
 
@@ -53,6 +39,12 @@ public class Main extends PApplet{
     public int n = 0;
     int xPixelsofImage=160/2;
     int yPixelsofImge=150/2;
+
+    int x;
+    int y;
+
+    int counter;
+
 
 
 
@@ -95,87 +87,50 @@ public class Main extends PApplet{
      @Override
     public void draw() {
 
-
-       //  background(255,199,140);
-         background(255,255,255);
-
-        // draw hex cards
-        /*for (HexCard hexan: HexCard.allHexans) {
-             showImage(hexan);
-         }*/
-
-      //   showImage(HexCard.allHexans[randomInt]);
+        if (counter==20){
+            background(0,255,0);
+        }else{
 
 
 
 
+            background(255,255,255);
+
+
+            // draw board
+            for (HexBoard[] hexanBoardColumn: HexBoard.hexBoard) {
+                for (HexBoard hexanBoard: hexanBoardColumn) {
+                    this.fillWithHexColor(hexanBoard);
+                    hexagon(hexanBoard.getXCords(), hexanBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
+                }
+            };
+            HexBoard hex1 = HexBoard.hexBoard[3][2];
+            HexBoard hex2 = HexBoard.hexBoard[2][2];
+            HexBoard hexBoard = hex2.neighbours[HexBoard.RIGHT_TOP_NEIGHBOUR];
+            
+
+
+
+            checkHexOverBoard();
 
 
 
 
+            showImage(HexCard.allHexans[randomInt]);
+            for (HexCard hexan: listOfHexCards) {
+
+                showImages(hexan);
+            }
 
 
-
-         // draw board
-         for (HexBoard[] hexanBoardColumn: HexBoard.hexBoard) {
-             for (HexBoard hexanBoard: hexanBoardColumn) {
-                 this.fillWithHexColor(hexanBoard);
-                 hexagon(hexanBoard.getXCords(), hexanBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
-             }
-         };
-         HexBoard hex1 = HexBoard.hexBoard[3][2];
-         HexBoard hex2 = HexBoard.hexBoard[2][2];
-         HexBoard hexBoard = hex2.neighbours[HexBoard.RIGHT_TOP_NEIGHBOUR];
+        }
 
 
-        /* fill(255,0,0);hexagon(hex2.getXCords(), hex2.getYCords(), HexCard.HEX_SIDE_SIZE);
-         fill(100,0,100);hexagon(hexBoard.getXCords(), hexBoard.getYCords(), HexCard.HEX_SIDE_SIZE);*/
-
-       /*  if(clicked && mouseOverHexan!= null){
-             for (int i =0; i < HexBoard.hexBoard.length;i++){
-                 for (int j =0; j < HexBoard.hexBoard[i].length;j++){
-
-                     if(HexBoard.hexBoard[i][j].getXCords() + HexCard.HEX_SIDE_SIZE > mouseX && HexBoard.hexBoard[i][j].getYCords() +  lengthY  > mouseY &&
-                             HexBoard.hexBoard[i][j].getXCords() - HexCard.HEX_SIDE_SIZE < mouseX && HexBoard.hexBoard[i][j].getYCords() - lengthY < mouseY){
-                         fill(255,0,0);hexagon(HexBoard.hexBoard[i][j].getXCords(),HexBoard.hexBoard[i][j].getYCords(), HexCard.HEX_SIDE_SIZE);
-                         cardOverBoard=true;
-                         //System.out.println("over");
-                         boardX=HexBoard.hexBoard[i][j].getXCords();
-                         boardY=HexBoard.hexBoard[i][j].getYCords();
-                     } else if(!cardOverBoard){
-                         System.out.println("not over");
-
-                       //  cardOverBoard=false;
-                     }
-                 }
-             }
-         }*/
-         checkHexOverBoard();
-
-
-        /* switch (n) {
-             case 0:
-                 System.out.println("Nothing");
-
-                 break;
-             case 1:
-                 System.out.println("not over");
-
-                 break;
-             case 2:
-                 System.out.println("over hex");
-
-                 break;
-         }*/
-
-
-
-
-         showImage(HexCard.allHexans[randomInt]);
 
      }
 
      public void checkHexOverBoard() {
+        int count =1;
 
 
          if (clicked && mouseOverHexan != null) {
@@ -188,17 +143,31 @@ public class Main extends PApplet{
                              HexBoard.hexBoard[i][j].getXCords() - HexCard.HEX_SIDE_SIZE < mouseX && HexBoard.hexBoard[i][j].getYCords() - lengthY < mouseY) {
                          fill(255, 0, 0);
                          hexagon(HexBoard.hexBoard[i][j].getXCords(), HexBoard.hexBoard[i][j].getYCords(), HexCard.HEX_SIDE_SIZE);
+                         count++;
 
                          // cardOverBoard=true;
                          //System.out.println("over");
-                         boardX = HexBoard.hexBoard[i][j].getXCords();
-                         boardY = HexBoard.hexBoard[i][j].getYCords();
-                         yes = true;
-                         n = 2;
+
+                        /* boardX = HexBoard.hexBoard[i][j].getXCords();
+                         boardY = HexBoard.hexBoard[i][j].getYCords();*/
+                         x = HexBoard.hexBoard[i][j].getXCords();
+                         y = HexBoard.hexBoard[i][j].getYCords();
+
+
+
 
                      }
                  }
              }
+             if(count==2){
+                 n=2;
+                 boardX=x;
+                 boardY=y;
+
+
+             }
+
+
          } else {
              n = 0;
          }
@@ -213,6 +182,16 @@ public class Main extends PApplet{
     }
     public void showImage(HexCard hexan){
         image(hexan.getImage(),HexCard.allHexans[randomInt].getXCords() , HexCard.allHexans[randomInt].getYCords());
+
+    }
+
+    public void showImages(HexCard hexan){
+
+        image(hexan.getImage(), hexan.getXCords(),hexan.getYCords());
+    }
+
+    public void addNeighbours(){
+
     }
 
 
@@ -258,15 +237,6 @@ public class Main extends PApplet{
             mouseOverHexan = null;
         }
 
-       /* for (HexCard hexan: HexCard.allHexans) {
-            if(hexan.getXCords() + HexCard.HEX_SIDE_SIZE > mouseX && hexan.getYCords() +  lengthY  > mouseY &&
-                    hexan.getXCords() - HexCard.HEX_SIDE_SIZE < mouseX && hexan.getYCords() - lengthY < mouseY){
-                mouseOverHexan = hexan;
-                System.out.println("over");
-            }else {
-                mouseOverHexan = null;
-            }
-        }*/
 
 
 
@@ -288,14 +258,12 @@ public class Main extends PApplet{
     @Override
     public void mousePressed() {
 
-
-      /*  if(cardOverBoard){
-
-        }*/
         if(n==2){
             System.out.println("ahoj");
             HexCard.allHexans[randomInt].setXCords(boardX-xPixelsofImage);
             HexCard.allHexans[randomInt].setYCords(boardY-yPixelsofImge);
+            listOfHexCards.add(HexCard.allHexans[randomInt]);
+            generateCard();
 
         }
 
@@ -303,7 +271,7 @@ public class Main extends PApplet{
 
         clicked = !clicked;
 
-        //generateCard();
+
     }
 
     public void fillWithHexColor(HexBoard boardHex){
@@ -327,6 +295,7 @@ public class Main extends PApplet{
                 ocupied=false;
             }
         }
+        counter++;
 
 
 
