@@ -106,8 +106,19 @@ public class Main extends PApplet{
             };
             HexBoard hex1 = HexBoard.hexBoard[3][2];
             HexBoard hex2 = HexBoard.hexBoard[2][2];
-            HexBoard hexBoard = hex2.neighbours[HexBoard.RIGHT_TOP_NEIGHBOUR];
-            
+            ArrayList<HexBoard> listOfNeighbours = new ArrayList<HexBoard>();
+            listOfNeighbours.add(hex2.neighbours[HexBoard.RIGHT_TOP_NEIGHBOUR]);
+            listOfNeighbours.add(hex2.neighbours[HexBoard.BOTTOM_NEIGHBOUR]);
+
+           // HexBoard hexBoard = hex2.neighbours[HexBoard.RIGHT_TOP_NEIGHBOUR];
+
+
+
+            fill(255,0,0);hexagon(hex2.getXCords(), hex2.getYCords(), HexCard.HEX_SIDE_SIZE);
+            for(HexBoard hex :listOfNeighbours){
+                fill(0,255,0);hexagon(hex.getXCords(), hex.getYCords(), HexCard.HEX_SIDE_SIZE);
+            }
+
 
 
 
