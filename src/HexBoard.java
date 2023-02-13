@@ -5,7 +5,8 @@ public class HexBoard extends Hex{
 
     int x;
     int y;
-    boolean isOccupied;
+
+    HexCard occupiedHexCard;
 
     int[] color;
 
@@ -24,7 +25,8 @@ public class HexBoard extends Hex{
         this.x = x;
         this.y = y;
 
-        this.isOccupied = false;
+        this.occupiedHexCard = null;
+
         this.color = HexBoard.DEFAULT_HEX_COLOR;
     }
 
@@ -34,9 +36,6 @@ public class HexBoard extends Hex{
         return HexBoard.hexBoard[x][y];
     }
 
-    public void setOccupied(boolean occupied) {
-        isOccupied = occupied;
-    }
 
     public void setColor(int[] color) {
         this.color = color;
@@ -50,12 +49,21 @@ public class HexBoard extends Hex{
         return y;
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
-    }
 
     public int[] getColor() {
         return color;
     }
 
+    public void evaluateLine(int x, int y, int index){
+        HexBoard currentHexBoard = HexBoard.getHexanBoard(x, y);
+        System.out.println(currentHexBoard.occupiedHexCard.getLines());
+
+       /* while(currentHexBoard != null){
+            HexBoard neighbourHexBoard = currentHexBoard.neighbours[HexBoard.BOTTOM_NEIGHBOUR];
+
+            if(currentHexBoard.occupiedHexCard.getLines()[HexBuilder.LINE_UP_INDEX] == neighbourHexBoard.occupiedHexCard.getLines()[HexBuilder.LINE_UP_INDEX])
+                currentHexBoard = neighbourHexBoard;
+        };*/
+
+    }
 }

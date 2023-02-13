@@ -2,11 +2,16 @@
 public class HexBuilder {
     // singleton
     private final static HexBuilder hexBuilderInstance = new HexBuilder();
+    public final static int LINE_UP_INDEX = 0;
+    public final static int LINE_RIGHT_DOWN_INDEX = 1;
+    public final static int LINE_LEFT_DOWN_INDEX = 2;
 
     public int[][] initLines;
     private HexBuilder(){
         this.initLines = new int[][]{
                 //po smeru hodinovych rucicek
+
+                // 0 index nahore; 1 index v pravo dole; 2
                 new int[]{9,8,2},
                 new int[]{9,3,2},
                 new int[]{9,3,6},

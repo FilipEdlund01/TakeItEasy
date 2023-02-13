@@ -44,6 +44,14 @@ public class Main extends PApplet{
     int y;
 
     int counter;
+    HexBoard hex1 = HexBoard.hexBoard[3][2];
+    HexBoard hex2 = HexBoard.hexBoard[2][2];
+
+    HexBoard hex3 = HexBoard.hexBoard[0][0];
+    HexBoard hex4 = HexBoard.hexBoard[0][1];
+    HexBoard hex5 = HexBoard.hexBoard[0][2];
+
+
 
 
 
@@ -104,8 +112,7 @@ public class Main extends PApplet{
                     hexagon(hexanBoard.getXCords(), hexanBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
                 }
             };
-            HexBoard hex1 = HexBoard.hexBoard[3][2];
-            HexBoard hex2 = HexBoard.hexBoard[2][2];
+
             ArrayList<HexBoard> listOfNeighbours = new ArrayList<HexBoard>();
             listOfNeighbours.add(hex2.neighbours[HexBoard.RIGHT_TOP_NEIGHBOUR]);
             listOfNeighbours.add(hex2.neighbours[HexBoard.BOTTOM_NEIGHBOUR]);
@@ -274,6 +281,12 @@ public class Main extends PApplet{
             HexCard.allHexans[randomInt].setXCords(boardX-xPixelsofImage);
             HexCard.allHexans[randomInt].setYCords(boardY-yPixelsofImge);
             listOfHexCards.add(HexCard.allHexans[randomInt]);
+            //HexBoard Board = HexBoard.getHexanBoard(x, y);
+
+            HexBoard.hexBoard[0][0].occupiedHexCard = HexCard.allHexans[randomInt];
+                        
+
+
             generateCard();
 
         }
