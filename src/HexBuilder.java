@@ -68,19 +68,9 @@ public class HexBuilder {
         }
     }
 
-    private void setupNeighbours(){
-        for (HexBoard[] hexanBoardColumn: HexBoard.hexBoard) {
-            for (HexBoard hexanBoard: hexanBoardColumn) {
-                for (int i = 0; i < hexanBoard.neighbours.length; i++) {
-
-                }
-            }
-        }
-    }
     private void addNeighborsToHexBoard() {
         for (int x = 0; x < HexBoard.hexBoard.length; x++) {
             for (int y = 0; y < HexBoard.hexBoard[x].length; y++) {
-                HexBoard hexBoard = HexBoard.getHexanBoard(x, y);
 
                 HexBoard.hexBoard[x][y].neighbours[0] = HexBoard.getHexanBoard(x, y - 1); // top
                 HexBoard.hexBoard[x][y].neighbours[1] = HexBoard.getHexanBoard(x, y + 1); // bottom

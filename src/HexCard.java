@@ -9,8 +9,21 @@ public class HexCard extends Hex {
     private String imageString;
     private PImage image;
 
+    private int startingCordX;
+    private int startingCordY;
+    public static int PUT_INBOARD_PIXEL_BIAS_X = -2;
+    public static int PUT_INBOARD_PIXEL_BIAS_Y = 8;
+
+    public final static int LINE_UP_INDEX = 0;
+    public final static int LINE_RIGHT_DOWN_INDEX = 1;
+    public final static int LINE_LEFT_DOWN_INDEX = 2;
+
     public HexCard(int xCords, int yCords, int[] lines, String imageString) {
         super(xCords, yCords);
+
+        this.startingCordX = xCords;
+        this.startingCordY = yCords;
+
         this.imageString = imageString;
         this.lines = lines;
         this.neighbours = new HexCard[9];
@@ -32,5 +45,8 @@ public class HexCard extends Hex {
         return this.image;
     }
 
-
+    public void resetToStartingCords(){
+        super.xCords = this.startingCordX;
+        super.yCords = this.startingCordY;
+    }
 }

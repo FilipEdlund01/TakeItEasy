@@ -1,7 +1,10 @@
+import java.util.Arrays;
+
 public class HexBoard extends Hex{
 
     static HexBoard[][] hexBoard;
     static int[] DEFAULT_HEX_COLOR = new int[]{169,169,169};
+    static int[] SELECT_HEX_COLOR = new int[]{255, 0, 0};
 
     int x;
     int y;
@@ -10,13 +13,15 @@ public class HexBoard extends Hex{
 
     int[] color;
 
-    // index
+    HexBoard[] neighbours = new HexBoard[6];
+
     final static int TOP_NEIGHBOUR = 0;
     final static int BOTTOM_NEIGHBOUR = 1;
     final static int RIGHT_TOP_NEIGHBOUR = 2;
     final static int RIGHT_BOTTOM_NEIGHBOUR = 3;
-//    final static int LEFT_TOP_NEIGHBOUR = 4;
-    HexBoard[] neighbours = new HexBoard[6];
+    final static int LEFT_TOP_NEIGHBOUR = 4;
+
+
 
 
     public HexBoard(int x, int y, int xCords, int yCords) {
@@ -54,16 +59,26 @@ public class HexBoard extends Hex{
         return color;
     }
 
-    public void evaluateLine(int x, int y, int index){
+    public static int evaluateLine(int x, int y, int index){
         HexBoard currentHexBoard = HexBoard.getHexanBoard(x, y);
-        System.out.println(currentHexBoard.occupiedHexCard.getLines());
+        if(currentHexBoard == null) return -1;
 
-       /* while(currentHexBoard != null){
-            HexBoard neighbourHexBoard = currentHexBoard.neighbours[HexBoard.BOTTOM_NEIGHBOUR];
+        int score = 0;
 
-            if(currentHexBoard.occupiedHexCard.getLines()[HexBuilder.LINE_UP_INDEX] == neighbourHexBoard.occupiedHexCard.getLines()[HexBuilder.LINE_UP_INDEX])
-                currentHexBoard = neighbourHexBoard;
-        };*/
+        boolean isValid = true;
+        while(currentHexBoard != null){
+            if(currentHexBoard.occupiedHexCard == null ) return -1;
+            if(currentHexBoard.occupiedHexCard.getLines()[HexBuilder.LINE_UP_INDEX] != currentHexBoard.neighbours[HexBoard.TOP_NEIGHBOUR].occupiedHexCard.getLines()[HexBuilder.LINE_UP_INDEX]){
+                isValid = false;
+                break;
+            }
+           currentHexBoard = currentHexBoard.neighbours[HexBoard.BOTTOM_NEIGHBOUR];
+       };
+       if(isValid){
+           score++;
+       }
+       return score;
+
 
     }
 }
