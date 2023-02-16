@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class HexBoard extends Hex{
 
     static HexBoard[][] hexBoard;
@@ -80,5 +78,9 @@ public class HexBoard extends Hex{
        return score;
 
 
+    }
+    public static int evaluateHexLine(int x , int y, int index){
+        HexBoard currentHexboard = HexBoard.getHexanBoard(x,y);
+        return currentHexboard.occupiedHexCard.getLines()[index];
     }
 }
