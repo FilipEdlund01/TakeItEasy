@@ -24,8 +24,8 @@ public class Main extends PApplet {
     private HexCard currentHexanThatIsMoved = null;
 
 
-    int xPixelsofImage = 160 / 2;
-    int yPixelsofImge = 150 / 2;
+    int xPixelsofImage = 166 / 2;
+    int yPixelsofImge = 140 / 2;
 
     int x;
     int y;
@@ -242,51 +242,6 @@ public class Main extends PApplet {
         int a4;
         int a5;
 
-
-
-
-
-
-        //evaluating first column down
-
-       /* for (int i = 0; i <HexBoard.hexBoard[0].length; i++) {
-
-
-
-
-            int c = HexBoard.evaluateHexLine(0, i, HexBuilder.LINE_UP_INDEX);
-
-            if (i == HexBoard.hexBoard[0].length-1) {
-
-                int q = HexBoard.evaluateHexLine(0, i - 1, HexBuilder.LINE_UP_INDEX);
-
-                if (q == c) {
-                    count++;
-                   // System.out.println("B");
-                    first_row += HexBoard.evaluateHexLine(0, i, HexBuilder.LINE_UP_INDEX);
-                    b = false;
-                }
-            }
-
-
-                if (b && i < HexBoard.hexBoard[0].length-1) {
-
-                    int d = HexBoard.evaluateHexLine(0, i + 1, HexBuilder.LINE_UP_INDEX);
-                    if (d == c) {
-                        count++;
-                       // System.out.println("A");
-                        first_row += HexBoard.evaluateHexLine(0, i, HexBuilder.LINE_UP_INDEX);
-                    }
-
-                }
-                if (count<3){
-                    first_row=0;
-                    count=0;
-                }
-
-
-
-        }*/
 
         a1 = HexBoard.evaluateHexLine(0,0,HexBuilder.LINE_UP_INDEX);
         a2 = HexBoard.evaluateHexLine(0,1,HexBuilder.LINE_UP_INDEX);
@@ -521,24 +476,7 @@ public class Main extends PApplet {
         }
 
         RESULT = first_row_down+second_row_down+third_row_down+fourth_row_down+fifth_row_down+first_up_diagonal+second_up_diagonal+third_up_diagonal+fourth_up_diagonal+fifth_up_diagonal+first_down_diagonal+second_down_diagonal+third_down_diagonal+fourth_down_diagonal+fifth_down_diagonal;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
     }
 }

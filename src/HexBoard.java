@@ -40,17 +40,7 @@ public class HexBoard extends Hex{
     }
 
 
-    public void setColor(int[] color) {
-        this.color = color;
-    }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
 
 
     public int[] getColor() {
