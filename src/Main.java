@@ -1,18 +1,21 @@
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 import java.lang.Math;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
 
 public class Main extends PApplet {
 
-    public static boolean b = false;
-    static int randomInt;
+    public  int count;
+     int n;
 
-    public boolean[] forbidenNumbers = new boolean[27];
-    ArrayList<HexCard> listOfHexCards = new ArrayList<HexCard>();
+
+
+
+
+    static boolean[] forbidenNumbers = new boolean[27];
+
     public static int WIDTH = 1600;
     public static int HEIGHT = 800;
 
@@ -31,44 +34,21 @@ public class Main extends PApplet {
     int y;
 
 
-    int count = 0;
-
-    int first_row_down;
-
-    int second_row_down;
-    int third_row_down;
-    int fourth_row_down;
-    int fifth_row_down;
-
-    int first_up_diagonal;
-    int second_up_diagonal;
-    int third_up_diagonal;
-    int fourth_up_diagonal;
-    int fifth_up_diagonal;
-
-    int first_down_diagonal;
-    int second_down_diagonal;
-    int third_down_diagonal;
-    int fourth_down_diagonal;
-    int fifth_down_diagonal;
-
-    int RESULT;
 
 
-
-
-
-
-
-
+    public boolean showMainStage = false;
+    static int randomInt;
 
     public static void main(String[] args) {
+        CicrcleSimulation simulation = new CicrcleSimulation();
+        simulation.start();
 
         HexBuilder.getInstance().buildHexans();
         HexBuilder.getInstance().buildHexBoard();
 
 
         PApplet.main("Main");
+
     }
 
 
@@ -85,32 +65,52 @@ public class Main extends PApplet {
     @Override
     public void setup() {
         Arrays.fill(forbidenNumbers, true);
+        StartStage.getInstance().setF(createFont("Arial",50,true));
+
+
         // load all images
         for (HexCard hexan : HexCard.allHexans) {
             hexan.setImage(loadImage(hexan.getImageString()));
         }
-        generateCard();
+        // set up the first image
+        randomInt = generateCard();
+      //  System.out.println("papa");
     }
 
     @Override
     public void draw() {
 
+
+
         background(255, 255, 255);
 
+        if(!showMainStage) {
+            textFont(StartStage.getInstance().f);
+            textAlign(CENTER);
+            text(StartStage.getInstance().printWelcomeText(),width/2,60);
 
-        // draw board
-        for (HexBoard[] hexanBoardColumn : HexBoard.hexBoard) {
-            for (HexBoard hexanBoard : hexanBoardColumn) {
-                this.fillWithHexColor(hexanBoard);
-                hexagon(hexanBoard.getXCords(), hexanBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
-                if (hexanBoard.occupiedHexCard != null) {
-                    showImage(hexanBoard.occupiedHexCard);
+           // println(StartStage.getInstance().printWelcomeText());
+            circle(StartStage.getInstance().getCircleX(), StartStage.getInstance().getCircleY(), StartStage.getInstance().getCircleDiameter());
+           // text(StartStage.getInstance().printWelcomeText(),WIDTH/2, 50);
+        }
+
+        if (showMainStage) {
+
+
+            // draw board
+            for (HexBoard[] hexanBoardColumn : HexBoard.hexBoard) {
+                for (HexBoard hexanBoard : hexanBoardColumn) {
+                    this.fillWithHexColor(hexanBoard);
+                    hexagon(hexanBoard.getXCords(), hexanBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
+                    if (hexanBoard.occupiedHexCard != null) {
+                        showImage(hexanBoard.occupiedHexCard);
+                    }
                 }
             }
-        }
-        ;
 
-        showImage(HexCard.allHexans[randomInt]);
+
+            showImage(HexCard.allHexans[randomInt]);
+        }
     }
 
 
@@ -139,6 +139,11 @@ public class Main extends PApplet {
                 mouseY > HexCard.allHexans[randomInt].getYCords() && mouseY < HexCard.allHexans[randomInt].getYCords() + HexCard.HEX_SIDE_SIZE * 2) {
             currentHexanThatIsMoved = HexCard.allHexans[randomInt];
             isHoldingCard = true;
+        }
+
+        if (StartStage.getInstance().overCircle(mouseX,mouseY)) {
+            System.out.println("ahoj");
+            showMainStage=true;
         }
     }
 
@@ -195,9 +200,10 @@ public class Main extends PApplet {
             foundHexBoard.color = HexBoard.DEFAULT_HEX_COLOR;
             foundHexBoard.occupiedHexCard = currentHexanThatIsMoved;
 
+
             count++;
 
-            generateCard();
+            randomInt = generateCard();
         }
 
         currentHexanThatIsMoved = null;
@@ -205,17 +211,25 @@ public class Main extends PApplet {
 
     }
 
+    @Override
+    public void mouseMoved() {
+        if(StartStage.getInstance().overCircle(mouseX,mouseY)){
+            fill(204, 102, 0);
+        }else{
+            fill(0,0,0);
+        }
+    }
+
     public void fillWithHexColor(HexBoard boardHex) {
         int[] rgbColor = boardHex.getColor();
         fill(rgbColor[0], rgbColor[1], rgbColor[2]);
     }
 
-
-    public void generateCard() {
+    public  int generateCard() {
         if (count == 19) { //because count is starting at 1
             System.out.println("konec hry");
-            calculateScore();
-            System.out.println("Tvoje score "+ RESULT);
+            int result = CalculateScore.calculateScore();
+            System.out.println("Tvoje score "+ result);
 
 
         }
@@ -227,258 +241,18 @@ public class Main extends PApplet {
             Random random = new Random();
             int r = (random.nextInt((max - min) + 1) + min);
             if (forbidenNumbers[r]) {
-                randomInt = r;
+                r=n;
                 forbidenNumbers[r] = false;
                 ocupied = false;
             }
         }
+        return n;
     }
 
-    public void calculateScore() {
-        boolean b = true;
-        int a1;
-        int a2;
-        int a3;
-        int a4;
-        int a5;
 
 
-        a1 = HexBoard.evaluateHexLine(0,0,HexBuilder.LINE_UP_INDEX);
-        a2 = HexBoard.evaluateHexLine(0,1,HexBuilder.LINE_UP_INDEX);
-        a3 = HexBoard.evaluateHexLine(0,2,HexBuilder.LINE_UP_INDEX);
-        if(a1==a2 && a2 ==a3){
-            first_row_down = a1*3;
-        }else {
-            first_row_down =0;
-        }
 
-        //evaluating second column down
-        a1 = HexBoard.evaluateHexLine(1,0,HexBuilder.LINE_UP_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,1,HexBuilder.LINE_UP_INDEX);
-        a3 = HexBoard.evaluateHexLine(1,2,HexBuilder.LINE_UP_INDEX);
-        a4 = HexBoard.evaluateHexLine(1,3,HexBuilder.LINE_UP_INDEX);
 
-        if(a1==a2 && a2 == a3 && a3 ==a4){
-            second_row_down = a1*4;
-        }else {
-            second_row_down =0;
-        }
-
-        //evaluating third column down
-
-        a1 = HexBoard.evaluateHexLine(2,0,HexBuilder.LINE_UP_INDEX);
-        a2 = HexBoard.evaluateHexLine(2,1,HexBuilder.LINE_UP_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,2,HexBuilder.LINE_UP_INDEX);
-        a4 = HexBoard.evaluateHexLine(2,3,HexBuilder.LINE_UP_INDEX);
-        a5 = HexBoard.evaluateHexLine(2,4,HexBuilder.LINE_UP_INDEX);
-
-        if(a1==a2 && a2 == a3 && a3 == a4 && a4 == a5){
-            third_row_down = a1*5;
-        }else {
-            third_row_down =0;
-        }
-
-        //evaluating fourth column down
-        a1 = HexBoard.evaluateHexLine(3,0,HexBuilder.LINE_UP_INDEX);
-        a2 = HexBoard.evaluateHexLine(3,1,HexBuilder.LINE_UP_INDEX);
-        a3 = HexBoard.evaluateHexLine(3,2,HexBuilder.LINE_UP_INDEX);
-        a4 = HexBoard.evaluateHexLine(3,3,HexBuilder.LINE_UP_INDEX);
-
-        if(a1==a2 && a2 == a3 && a3 ==a4){
-            fourth_row_down = a1*4;
-        }else {
-            fourth_row_down =0;
-        }
-
-        //evaluating fifth column
-
-        a1 = HexBoard.evaluateHexLine(4,0,HexBuilder.LINE_UP_INDEX);
-        a2 = HexBoard.evaluateHexLine(4,1,HexBuilder.LINE_UP_INDEX);
-        a3 = HexBoard.evaluateHexLine(4,2,HexBuilder.LINE_UP_INDEX);
-        if(a1==a2 && a2 ==a3){
-            fifth_row_down = a1*3;
-        }else {
-            fifth_row_down =0;
-        }
-
-
-
-
-
-            //evaluating the left down diagonal line from HexBoard[0][0]
-
-             a1 = HexBoard.evaluateHexLine(0,0,HexBuilder.LINE_LEFT_DOWN_INDEX);
-             a2 = HexBoard.evaluateHexLine(1,0,HexBuilder.LINE_LEFT_DOWN_INDEX);
-             a3 = HexBoard.evaluateHexLine(2,0,HexBuilder.LINE_LEFT_DOWN_INDEX);
-
-
-            if(a1==a2 && a2==a3){
-
-                first_up_diagonal = a1*3;
-
-            }else{
-                first_up_diagonal= 0;
-            }
-
-
-        //evaluating the left down diagonal line from HexBoard[0][1]
-
-        a1 = HexBoard.evaluateHexLine(0,1,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,1,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,1,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(3,0,HexBuilder.LINE_LEFT_DOWN_INDEX);
-
-
-        if(a1==a2 && a2==a3 && a3 ==a4){
-
-            second_up_diagonal = a1*4;
-
-        }else{
-            second_up_diagonal= 0;
-        }
-
-        //evaluating the left down diagonal line from HexBoard[0][2]
-
-        a1 = HexBoard.evaluateHexLine(0,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(3,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a5 = HexBoard.evaluateHexLine(4,0,HexBuilder.LINE_LEFT_DOWN_INDEX);
-
-
-        if(a1==a2 && a2 == a3 && a3 == a4 && a4 == a5){
-
-            third_up_diagonal = a1*5;
-
-        }else{
-            third_up_diagonal= 0;
-        }
-
-        //evaluating the left down diagonal line from HexBoard[1][3]
-
-        a1 = HexBoard.evaluateHexLine(1,3,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(2,3,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(3,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(4,1,HexBuilder.LINE_LEFT_DOWN_INDEX);
-
-
-
-        if(a1==a2 && a2 == a3 && a3 == a4){
-
-            fourth_up_diagonal = a1*4;
-
-        }else{
-            fourth_up_diagonal= 0;
-        }
-
-        //evaluating the left down diagonal line from HexBoard[2][4]
-
-        a1 = HexBoard.evaluateHexLine(2,4,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(3,3,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(4,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-
-
-
-
-        if(a1==a2 && a2 == a3){
-
-            fifth_up_diagonal = a1*3;
-
-        }else{
-            fifth_up_diagonal= 0;
-        }
-
-        //evaluating the right down diagonal line from HexBoard[2][0]
-        a1 = HexBoard.evaluateHexLine(2,0,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(3,0,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(4,0,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-
-
-
-
-        if(a1==a2 && a2 == a3){
-
-            first_down_diagonal= a1*3;
-
-        }else{
-            first_down_diagonal= 0;
-        }
-        //evaluating the right down diagonal line from HexBoard[1][0]
-
-        a1 = HexBoard.evaluateHexLine(1,0,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(2,1,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(3,1,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(4,1,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-
-
-
-
-        if(a1==a2 && a2 == a3 && a3 == a4){
-
-            second_down_diagonal= a1*4;
-
-        }else{
-            second_down_diagonal= 0;
-        }
-        //evaluating the right down diagonal line from HexBoard[0][0]
-
-        a1 = HexBoard.evaluateHexLine(0,0,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,1,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,2,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(3,2,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a5 = HexBoard.evaluateHexLine(4,2,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-
-
-
-
-        if(a1==a2 && a2 == a3 && a3 ==a4 && a4 == a5){
-
-            third_down_diagonal= a1*5;
-
-        }else{
-            third_down_diagonal= 0;
-        }
-
-        //evaluating the right down diagonal line from HexBoard[0][1]
-
-        a1 = HexBoard.evaluateHexLine(0,1,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,2,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,3,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(3,3,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-
-
-
-
-        if(a1==a2 && a2 == a3 && a3 ==a4){
-
-            fourth_down_diagonal= a1*4;
-
-        }else{
-            fourth_down_diagonal= 0;
-        }
-
-        //evaluating the right down diagonal line from HexBoard[0][2]
-
-        a1 = HexBoard.evaluateHexLine(0,2,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,3,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,4,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-
-
-
-
-
-        if(a1==a2 && a2 == a3 ){
-
-            fifth_down_diagonal= a1*3;
-
-        }else{
-            fifth_down_diagonal= 0;
-        }
-
-        RESULT = first_row_down+second_row_down+third_row_down+fourth_row_down+fifth_row_down+first_up_diagonal+second_up_diagonal+third_up_diagonal+fourth_up_diagonal+fifth_up_diagonal+first_down_diagonal+second_down_diagonal+third_down_diagonal+fourth_down_diagonal+fifth_down_diagonal;
-        
-
-    }
 }
 
 
