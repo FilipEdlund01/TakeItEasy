@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 import processing.event.MouseEvent;
 import java.lang.Math;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -40,6 +41,8 @@ public class Main extends PApplet {
     static int randomInt;
 
     public static void main(String[] args) {
+
+
         CicrcleSimulation simulation = new CicrcleSimulation();
         simulation.start();
 
@@ -64,6 +67,11 @@ public class Main extends PApplet {
 
     @Override
     public void setup() {
+        try {
+            API.getInstance().readFromDatabase();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         Arrays.fill(forbidenNumbers, true);
         StartStage.getInstance().setF(createFont("Arial",50,true));
 
@@ -73,7 +81,7 @@ public class Main extends PApplet {
             hexan.setImage(loadImage(hexan.getImageString()));
         }
         // set up the first image
-        randomInt = generateCard();
+         generateCard();
       //  System.out.println("papa");
     }
 
@@ -203,7 +211,7 @@ public class Main extends PApplet {
 
             count++;
 
-            randomInt = generateCard();
+           generateCard();
         }
 
         currentHexanThatIsMoved = null;
@@ -225,7 +233,7 @@ public class Main extends PApplet {
         fill(rgbColor[0], rgbColor[1], rgbColor[2]);
     }
 
-    public  int generateCard() {
+    public  void  generateCard() {
         if (count == 19) { //because count is starting at 1
             System.out.println("konec hry");
             int result = CalculateScore.calculateScore();
@@ -241,12 +249,12 @@ public class Main extends PApplet {
             Random random = new Random();
             int r = (random.nextInt((max - min) + 1) + min);
             if (forbidenNumbers[r]) {
-                r=n;
+                randomInt =r;
                 forbidenNumbers[r] = false;
                 ocupied = false;
             }
         }
-        return n;
+
     }
 
 

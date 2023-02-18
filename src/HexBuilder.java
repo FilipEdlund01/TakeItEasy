@@ -63,7 +63,7 @@ public class HexBuilder {
                 width += HexCard.HEX_SIDE_SIZE * 2;
             }
 
-            HexCard.allHexans[i] = new HexCard(0, 50, init_lines, "images/hex"+init_lines[0]+init_lines[1]+init_lines[2]+".png");
+            HexCard.allHexans[i] = new HexCard(0, 50, init_lines, "images2/hex"+init_lines[0]+init_lines[1]+init_lines[2]+".png");
             index_line++;
         }
     }
