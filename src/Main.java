@@ -67,11 +67,16 @@ public class Main extends PApplet {
 
     @Override
     public void setup() {
+
         try {
             API.getInstance().readFromDatabase();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
+        API.getInstance().InsertNewUserToDatabase();
+
         Arrays.fill(forbidenNumbers, true);
         StartStage.getInstance().setF(createFont("Arial",50,true));
 
