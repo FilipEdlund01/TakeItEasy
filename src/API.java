@@ -31,12 +31,12 @@ public class API {
             Statement stmt = conn.createStatement();
 
             // Write the SQL query
-            String sql = "INSERT INTO users (uid, passwd) VALUES ('John Doe', 30)";
+         //   String sql = "INSERT INTO users (uid, passwd) VALUES ('John Doe', 30)";
 
             // Execute the query
-            int rows = stmt.executeUpdate(sql);
+         //   int rows = stmt.executeUpdate(sql);
 
-            System.out.println(rows + " row(s) affected");
+          //  System.out.println(rows + " row(s) affected");
 
             // Close the statement and connection
             stmt.close();

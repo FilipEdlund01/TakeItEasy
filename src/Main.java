@@ -1,18 +1,18 @@
+import g4p_controls.*;
 import processing.core.PApplet;
 import processing.event.MouseEvent;
-import java.lang.Math;
+
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Random;
 
 
 public class Main extends PApplet {
+    GTextField textField;
 
-    public  int count;
-     int n;
-
-
-
+    public int count;
+    int n;
 
 
     static boolean[] forbidenNumbers = new boolean[27];
@@ -35,12 +35,11 @@ public class Main extends PApplet {
     int y;
 
 
-
-
     public boolean showMainStage = false;
     static int randomInt;
 
     public static void main(String[] args) {
+        StartStage.getInstance().buildCircles();
 
 
         CicrcleSimulation simulation = new CicrcleSimulation();
@@ -68,6 +67,19 @@ public class Main extends PApplet {
     @Override
     public void setup() {
 
+        textField = new GTextField(this, 100, 100, 200, 30);
+
+        // set the default text
+        textField.setText("Type here");
+
+        // set the font size and color
+        textField.setFont(new Font("Arial", Font.PLAIN, 16));
+        textField.setOpaque(true);
+        textField.setLocalColorScheme(GCScheme.RED_SCHEME);
+
+
+        //fill(40,66,159);
+
         try {
             API.getInstance().readFromDatabase();
         } catch (SQLException e) {
@@ -78,7 +90,7 @@ public class Main extends PApplet {
         API.getInstance().InsertNewUserToDatabase();
 
         Arrays.fill(forbidenNumbers, true);
-        StartStage.getInstance().setF(createFont("Arial",50,true));
+        StartStage.getInstance().setF(createFont("Arial", 50, true));
 
 
         // load all images
@@ -86,25 +98,39 @@ public class Main extends PApplet {
             hexan.setImage(loadImage(hexan.getImageString()));
         }
         // set up the first image
-         generateCard();
-      //  System.out.println("papa");
+        generateCard();
+        //  System.out.println("papa");
     }
 
     @Override
     public void draw() {
 
+        frameRate(100);
 
 
         background(255, 255, 255);
 
-        if(!showMainStage) {
+        if (!showMainStage) {
+
             textFont(StartStage.getInstance().f);
+            //textAlign(CENTER);
+            //text(StartStage.getInstance().printWelcomeText(),width/2,60);
+
             textAlign(CENTER);
-            text(StartStage.getInstance().printWelcomeText(),width/2,60);
+            text(StartStage.getInstance().logIn(),Circle.allCircels[0].getCordX(),Circle.allCircels[0].getCordY()+Circle.allCircels[0].getDiameter());
+            textAlign(CENTER);
+            text(StartStage.getInstance().register(),Circle.allCircels[1].getCordX(),Circle.allCircels[1].getCordY()+Circle.allCircels[1].getDiameter());
+
 
            // println(StartStage.getInstance().printWelcomeText());
-            circle(StartStage.getInstance().getCircleX(), StartStage.getInstance().getCircleY(), StartStage.getInstance().getCircleDiameter());
-           // text(StartStage.getInstance().printWelcomeText(),WIDTH/2, 50);
+
+           for (int i=0; i < Circle.allCircels.length; i++){
+                circle(Circle.allCircels[i].getCordX(), Circle.allCircels[i].getCordY(), Circle.allCircels[i].getDiameter());
+            }
+
+
+
+            // text(StartStage.getInstance().printWelcomeText(),WIDTH/2, 50);
         }
 
         if (showMainStage) {
@@ -154,9 +180,13 @@ public class Main extends PApplet {
             isHoldingCard = true;
         }
 
-        if (StartStage.getInstance().overCircle(mouseX,mouseY)) {
-            System.out.println("ahoj");
-            showMainStage=true;
+
+        for (int i = 0; i < Circle.allCircels.length; i++) {
+            if (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[i].getCordX(), Circle.allCircels[i].getCordY(), Circle.allCircels[i].getDiameter())) {
+
+                showMainStage = true;
+            }
+
         }
     }
 
@@ -216,7 +246,7 @@ public class Main extends PApplet {
 
             count++;
 
-           generateCard();
+            generateCard();
         }
 
         currentHexanThatIsMoved = null;
@@ -226,11 +256,24 @@ public class Main extends PApplet {
 
     @Override
     public void mouseMoved() {
-        if(StartStage.getInstance().overCircle(mouseX,mouseY)){
-            fill(204, 102, 0);
-        }else{
-            fill(0,0,0);
-        }
+
+            if(StartStage.getInstance().overCircle(mouseX,mouseY,Circle.allCircels[0].getCordX(),Circle.allCircels[0].getCordY(),Circle.allCircels[0].getDiameter())||(StartStage.getInstance().overCircle(mouseX,mouseY,Circle.allCircels[1].getCordX(),Circle.allCircels[1].getCordY(),Circle.allCircels[1].getDiameter()))){
+                //fill(204, 102, 0);
+
+                //pushStyle();  // Start a new style
+               // strokeWeight(40);
+                fill(204, 153, 0);
+                //circle(Circle.allCircels[i].getCordX(), Circle.allCircels[i].getCordY(), Circle.allCircels[i].getDiameter());
+            }else{
+                fill(40,66,159);
+            }
+
+
+    }
+
+    @Override
+    public void keyPressed() {
+
     }
 
     public void fillWithHexColor(HexBoard boardHex) {
@@ -238,11 +281,11 @@ public class Main extends PApplet {
         fill(rgbColor[0], rgbColor[1], rgbColor[2]);
     }
 
-    public  void  generateCard() {
+    public void generateCard() {
         if (count == 19) { //because count is starting at 1
             System.out.println("konec hry");
             int result = CalculateScore.calculateScore();
-            System.out.println("Tvoje score "+ result);
+            System.out.println("Tvoje score " + result);
 
 
         }
@@ -254,18 +297,16 @@ public class Main extends PApplet {
             Random random = new Random();
             int r = (random.nextInt((max - min) + 1) + min);
             if (forbidenNumbers[r]) {
-                randomInt =r;
+                randomInt = r;
                 forbidenNumbers[r] = false;
                 ocupied = false;
             }
         }
 
     }
-
-
-
-
-
 }
+
+
+
 
 

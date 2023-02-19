@@ -21,7 +21,7 @@ public class StartStage {
         return f;
     }
 
-    public int getCircleX() {
+   /* public int getCircleX() {
         return x;
     }
 
@@ -32,7 +32,7 @@ public class StartStage {
     public int getCircleDiameter() {
         return diameter;
     }
-
+*/
     public void setCircleDiameter(int diameter) {
         this.diameter = diameter;
     }
@@ -42,27 +42,59 @@ public class StartStage {
 
     }
 
+    public void buildCircles(){
+      /*  for (int i=0; i < Circle.allCircels.length; i++){
+            Circle.allCircels[i] = new Circle()
+        }*/
+
+        Circle.allCircels[0] = new Circle(x-Main.WIDTH/3,y,diameter);
+        Circle.allCircels[1] = new Circle(x+Main.WIDTH/3,y,diameter);
+       // Circle.allCircels[2] = new Circle(-1,-1,-1);//avoid out of bounds exception
+
+
+
+    }
+
     public static StartStage getInstance() {
         return startStageInstance;
     }
 
-    public static void runCircleAnimation(){
-        for(int i =1000; i>200; i--){
 
-        }
-    }
 
-    public boolean overCircle( int mouseX, int mouseY) {
-        float disX = x - mouseX;
-        float disY = y - mouseY;
+    public boolean overCircle( int mouseX, int mouseY,int circleX,int circleY,int diameter) {
+      /*  for (int i=0; i < Circle.allCircels.length; i++){
+            float disX = Circle.allCircels[i].getCordX() - mouseX;
+            float disY = Circle.allCircels[i].getCordY() - mouseY;
+            if (sqrt(sq(disX) + sq(disY)) < Circle.allCircels[i].getDiameter() / 2) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }*/
+
+        float disX = circleX - mouseX;
+        float disY = circleY - mouseY;
         if (sqrt(sq(disX) + sq(disY)) < diameter / 2) {
             return true;
         } else {
             return false;
         }
+
+
+
     }
+
+
     public String printWelcomeText(){
         return "Click on the button to start!";
+    }
+
+    public String logIn(){
+        return "LOG IN";
+    }
+    public String register(){
+        return "REGISTER";
     }
 
 

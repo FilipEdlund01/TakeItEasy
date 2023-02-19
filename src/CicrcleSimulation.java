@@ -10,7 +10,9 @@ public class CicrcleSimulation extends Thread{
 
         for (int i =1000; i >=200; i--){
             //System.out.println("New thread running");
-            StartStage.getInstance().setCircleDiameter(i);
+           // StartStage.getInstance().setCircleDiameter(i);
+            Circle.allCircels[0].setDiameter(i);
+            Circle.allCircels[1].setDiameter(i);
             try {
                 sleep(10);
             } catch (InterruptedException e) {
@@ -29,7 +31,7 @@ public class CicrcleSimulation extends Thread{
             StartStage.getInstance().setCircleDiameter(diameter);
 
             try {
-                Thread.sleep(10);  // pause for 50 milliseconds
+                Thread.sleep(50);  // pause for 50 milliseconds
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
