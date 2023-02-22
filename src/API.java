@@ -1,6 +1,16 @@
 import java.sql.*;
 //singelton pro udrzeni konzistence
 public class API {
+    public boolean UserFound;
+
+    public void setUserFound(boolean userFound) {
+        UserFound = userFound;
+    }
+
+    public boolean isUserFound() {
+        return UserFound;
+    }
+
     private final static API api = new API();
 
     public void readFromDatabase() throws SQLException {
@@ -16,6 +26,33 @@ public class API {
         }catch (Exception ex) {
             ex.printStackTrace();
         }
+
+    }
+
+    public void findUserInDatabase(String s){
+        int index =1;
+        String request = "SELECT * FROM users WHERE uid =" + "'" + s + "'" +";";
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(request);
+            while (resultSet.next()) {
+                index++;
+                System.out.println(resultSet.getString("uid"));
+                setUserFound(true);
+            }
+            if(index==1){
+                System.out.println("user not found");
+                setUserFound(false);
+            }
+            statement.close();
+            connection.close();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+
 
     }
 
