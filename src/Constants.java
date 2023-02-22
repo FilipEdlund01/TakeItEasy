@@ -6,10 +6,10 @@ public enum Constants {
     HEIGHT(800),
     xPixelsofImage(166 / 2),
     yPixelsofImage(140 / 2),
-    textFieldx0(100),
+    textFieldx0(700),
     textFieldy0(100),
     textFieldXdistance(200),
-    textFieldYdistance(30);
+    textFieldYdistance(100);
 
 
     private final int value;

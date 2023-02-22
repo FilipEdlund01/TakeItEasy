@@ -10,5 +10,6 @@
     <orderEntry type="library" name="mysql-connector-j-8.0.32" level="project" />
     <orderEntry type="library" name="core" level="project" />
     <orderEntry type="library" name="G4P" level="project" />
+    <orderEntry type="library" name="acm-2.20.7" level="project" />
   </component>
 </module>

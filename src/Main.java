@@ -14,6 +14,7 @@ import java.util.Random;
 
 
 public class Main extends PApplet {
+    String current="";
 
     GTextField textField;
 
@@ -48,6 +49,7 @@ public class Main extends PApplet {
     static int randomInt;
     private boolean firstCircleClicked = false;
     private boolean secondBooleanClicked = false;
+
 
     public static void main(String[] args) {
         StartStage.getInstance().buildCircles();
@@ -105,21 +107,22 @@ public class Main extends PApplet {
     public void setup() {
 
        // customGUI();
-        textField = new GTextField(this, Constants.textFieldx0.getValue(), Constants.textFieldy0.getValue(), Constants.textFieldXdistance.getValue(), Constants.textFieldYdistance.getValue()) ;
+       // textField = new GTextField(this, Constants.textFieldx0.getValue(), Constants.textFieldy0.getValue(), Constants.textFieldXdistance.getValue(), Constants.textFieldYdistance.getValue()) ;
 
         // set the default text
         ///textField.setText("Type here");
 
+
+        textField = new GTextField(this, Constants.textFieldx0.getValue(), Constants.textFieldy0.getValue(), Constants.textFieldXdistance.getValue(), Constants.textFieldYdistance.getValue()) ;
         // set the font size and color
         textField.setFont(new Font("Arial", Font.PLAIN, 16));
         textField.setOpaque(true);
         textField.setLocalColorScheme(GCScheme.RED_SCHEME);
         textField.setOpaque(true);
-        textField.addEventHandler(this,"textfield_change");
-        textField.addA
+
+        // textField.addEventHandler(this,"textfield_change");
 
         textFieldLetters.add(textField);
-
 
 
 
@@ -156,16 +159,22 @@ public class Main extends PApplet {
         frameRate(100);
 
 
+
         background(255, 255, 255);
         if(firstCircleClicked){
 
 
-            for(GTextField t : textFieldLetters){
+            text(current,Constants.WIDTH.getValue()/2, 100);
+
+
+
+           /* for(GTextField t : textFieldLetters){
                  t.draw();
 
-            }
+            }*/
+            textField.draw();
 
-          //  textField.addEventHandler(textField, "handleTextEvents");
+
 
 
         }
@@ -254,9 +263,7 @@ public class Main extends PApplet {
             isHoldingCard = true;
         }
 
-        for(GTextField f : textFieldLetters){
-            f.addEventHandler(textField,"S");
-        }
+
 
 
 
@@ -378,31 +385,20 @@ public class Main extends PApplet {
     }
     @Override
     public void keyPressed() {
-        //  textField.addEventHandler(key,String.valueOf(keyCode));
-        for(GTextField f : textFieldLetters){
-            //f.isTextEditEnabled();
-            //f.addEventHandler(f, String.valueOf(key));
-            //f.keyEvent(f,String.valueOf(key));
-            //f.te
-
-        }
-
-       //handleTextEvents(keyCode,key);
-
-       // handleTextEvents(textField,event.getKey());
 
 
-    }
-
-    public void handleTextEvents(GEditableTextControl source, GEvent event) {
-        if (event.getType() == textField.keyEvent(String);) {
-            String key = event.getKeyChar() + "";
-            if (key.matches("[A-Za-z]")) { // only accept letters
-                source.insertString(key);
+        if (keyCode == BACKSPACE) {
+            if (current.length() > 0) {
+                current = current.substring(0, current.length()-1);
             }
+        } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
+            current = current + key;
+            System.out.println(current);
         }
+
     }
-    }
+
+
 
 
 }
