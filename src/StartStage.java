@@ -6,9 +6,9 @@ import static processing.core.PApplet.sq;
 
 public class StartStage {
     private final static StartStage startStageInstance = new StartStage();
-    private int x= Main.WIDTH/2;
+    private int x= Constants.WIDTH.getValue()/2;
 
-    private int y= Main.HEIGHT/2;
+    private int y= Constants.HEIGHT.getValue()/2;
     private  int diameter =200;
 
     public PFont f;
@@ -47,8 +47,8 @@ public class StartStage {
             Circle.allCircels[i] = new Circle()
         }*/
 
-        Circle.allCircels[0] = new Circle(x-Main.WIDTH/3,y,diameter);
-        Circle.allCircels[1] = new Circle(x+Main.WIDTH/3,y,diameter);
+        Circle.allCircels[0] = new Circle(x-Constants.WIDTH.getValue()/3,y,diameter);
+        Circle.allCircels[1] = new Circle(x+Constants.WIDTH.getValue()/3,y,diameter);
        // Circle.allCircels[2] = new Circle(-1,-1,-1);//avoid out of bounds exception
 
 

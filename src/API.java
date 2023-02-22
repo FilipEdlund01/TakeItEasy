@@ -36,6 +36,7 @@ public class API {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(request);
+          /*  System.out.println(resultSet.getString("uid"));*/
             while (resultSet.next()) {
                 index++;
                 System.out.println(resultSet.getString("uid"));

@@ -57,7 +57,7 @@ public class HexBuilder {
         for (int i = 0; i < this.initLines.length; i++) {
             int[] init_lines = HexBuilder.getInstance().initLines[index_line];
 
-            if(height < Main.HEIGHT - HexCard.HEX_SIDE_SIZE * 4){
+            if(height < Constants.HEIGHT.getValue() - HexCard.HEX_SIDE_SIZE * 4){
                 height += HexCard.HEX_SIDE_SIZE *2;
             }else {
                 width += HexCard.HEX_SIDE_SIZE * 2;
@@ -102,8 +102,8 @@ public class HexBuilder {
 
     public void buildHexBoard(){
 
-        final int yCordStart = Main.HEIGHT/3;
-        int xCords = Main.WIDTH/2;
+        final int yCordStart = Constants.HEIGHT.getValue()/3;
+        int xCords = Constants.WIDTH.getValue()/2;
         int yCords = yCordStart;
 
         int[] columnYMovement = new int[]{1, 2, 1, 0, -1}; // last is -1 to avoid index out of bounds

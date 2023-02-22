@@ -7,7 +7,7 @@ public class ChainDemo   {
         loginHandler userDontExist = new userDontExist();
 
         userExist.setNext(userDontExist);
-        userExist.handle(new Request("fiip"));
+        userExist.handle(new Request("fip"));
         //API.getInstance().findUserInDatabase("John");
 
 
