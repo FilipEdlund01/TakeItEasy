@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class UI extends PApplet {
+    private String stringForUser =StartStage.getInstance().prinsStringForUser(0);
     Rectangle rectangle = new Rectangle(0,0,0,0);
 
 
@@ -118,9 +119,19 @@ public class UI extends PApplet {
             textSize(25);
             text(inputText, Constants.WIDTH.getValue()/2, Constants.HEIGHT.getValue()/2+Constants.rectYdistance.getValue()-5);
             textSize(30);
-            text(StartStage.getInstance().prinsStringForUser(0), Constants.WIDTH.getValue()/2,Constants.HEIGHT.getValue()/2+Constants.rectYdistance.getValue()+30);
+            text(StartStage.getInstance().getMessage(), Constants.WIDTH.getValue()/2,Constants.HEIGHT.getValue()/2+Constants.rectYdistance.getValue()+30);
 
 
+         /*   if(StartStage.getInstance().loginFailed){
+                System.out.println("kokt");
+                textSize(30);
+                text(StartStage.getInstance().prinsStringForUser(1), Constants.WIDTH.getValue()/2,Constants.HEIGHT.getValue()/2+Constants.rectYdistance.getValue()+30);
+            }
+
+            if(!StartStage.getInstance().loginFailed) {
+                textSize(30);
+                text(StartStage.getInstance().prinsStringForUser(0), Constants.WIDTH.getValue() / 2, Constants.HEIGHT.getValue() / 2 + Constants.rectYdistance.getValue() + 30);
+            }*/
 
 
            /* for(GTextField t : textFieldLetters){
@@ -353,7 +364,7 @@ public class UI extends PApplet {
             cursorPos++;
         } else if (keyCode == BACKSPACE && cursorPos > 0) {
             inputText = inputText.substring(0, cursorPos - 1) + inputText.substring(cursorPos);
-
+            cursorPos--;
         } else if(keyCode == ENTER){
 
             //chain of responsibility find if user exist in database
@@ -362,6 +373,8 @@ public class UI extends PApplet {
 
             userExist.setNext(userDontExist);
             userExist.handle(new Request(inputText));
+            System.out.println(StartStage.getInstance().getMessage());
+
         }
     }
 

@@ -11,6 +11,7 @@ public class StartStage {
     private int y= Constants.HEIGHT.getValue()/2;
     private  int diameter =200;
 
+
     public PFont f;
 
     public void setF(PFont f) {
@@ -21,18 +22,22 @@ public class StartStage {
         return f;
     }
 
-   /* public int getCircleX() {
-        return x;
+    public boolean loginFailed;
+    public String Message ="Type your username and hit enter";
+
+    public String getMessage() {
+        return Message;
     }
 
-    public int getCircleY() {
-        return y;
+    public void setMessage(String message) {
+        this.Message = message;
     }
 
-    public int getCircleDiameter() {
-        return diameter;
+    public void setLoginFailed(boolean loginFailed) {
+        this.loginFailed = loginFailed;
     }
-*/
+
+
     public void setCircleDiameter(int diameter) {
         this.diameter = diameter;
     }
@@ -59,16 +64,22 @@ public class StartStage {
 
     }
     public String prinsStringForUser(int n){
-        String s = null;
+        String s ="";
         if(n==0){
             s="Please type your username";
+        } else if (n==1) {
+            s="User not found";
+
         }
+
         return s;
     }
 
     public static StartStage getInstance() {
         return startStageInstance;
     }
+
+
 
 
 

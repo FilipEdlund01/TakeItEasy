@@ -8,8 +8,11 @@ public class userExist implements loginHandler{
     public void handle(Request request) {
         API.getInstance().findUserInDatabase(request.getUserName()); // make the sql request to database
         if(API.getInstance().isUserFound()){
-            System.out.println("user found");
+          //  System.out.println("user found");
+            StartStage.getInstance().setMessage("User Found");
 
+        }else{
+            StartStage.getInstance().setMessage("User not found");
         }
     }
 
