@@ -9,12 +9,8 @@ public class userExist implements loginHandler{
         API.getInstance().findUserInDatabase(request.getUserName()); // make the sql request to database
         if(API.getInstance().isUserFound()){
             System.out.println("user found");
+
         }
     }
-      /*  if (request.getValue() < 10) {
-            System.out.println("Request handled by LessThanTenHandler");
-        } else if (next != null) {
-            next.handle(request);
-        }
-    }*/
+
 }

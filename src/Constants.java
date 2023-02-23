@@ -6,10 +6,11 @@ public enum Constants {
     HEIGHT(800),
     xPixelsofImage(166 / 2),
     yPixelsofImage(140 / 2),
-    textFieldx0(700),
-    textFieldy0(100),
-    textFieldXdistance(200),
-    textFieldYdistance(100);
+    rectx0(WIDTH.getValue()/2-100),
+    recty0(-100), // so it cant be seen at first
+    rectXdistance(200),
+    rectYdistance(30),
+    userFound(0);
 
 
     private final int value;

@@ -54,6 +54,17 @@ public class StartStage {
 
 
     }
+    public void buildRects(){
+        Rectangle.allRectangels[0]=new Rectangle(Constants.rectx0.getValue(), Constants.recty0.getValue(), Constants.rectXdistance.getValue(),Constants.rectYdistance.getValue());
+
+    }
+    public String prinsStringForUser(int n){
+        String s = null;
+        if(n==0){
+            s="Please type your username";
+        }
+        return s;
+    }
 
     public static StartStage getInstance() {
         return startStageInstance;
