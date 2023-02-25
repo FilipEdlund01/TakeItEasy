@@ -218,6 +218,7 @@ public class UI extends PApplet {
         }
         if (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[1].getCordX(), Circle.allCircels[1].getCordY(), Circle.allCircels[1].getDiameter())) {
             System.out.println("Second circle");
+          //  API.getInstance().CheckPassword("filip","kk");
             // showMainStage = true;
         }
 
@@ -397,13 +398,24 @@ public class UI extends PApplet {
         } else if(keyCode == ENTER){
 
             switch(StartStage.getInstance().getMessage()){  // get text written below the text field
-                case "Please", "User not found":
+                case "Please type your username and hit enter", "User not found":
                     //System.out.println("kokot");
                     userExist.getInstance().handle(new Request(inputText));
                     if(userExist.getInstance().b){
+                        cursorPos=0;
                         inputText="";
                         userExist.getInstance().setNext(passwordHandler.getInstance());
-                        passwordHandler.getInstance().handle(new Request(inputText));
+
+                    }
+                    break;
+                case "User found, type password":
+                    passwordHandler.getInstance().handle(new Request(inputText));
+                    if(passwordHandler.getInstance().b){
+                        cursorPos=0;
+                        inputText="";
+                        System.out.println("found password");
+                        showMainStage=true;
+
                     }
                     break;
 

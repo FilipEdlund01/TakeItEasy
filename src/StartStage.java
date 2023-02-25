@@ -6,6 +6,16 @@ import static processing.core.PApplet.sq;
 
 public class StartStage {
     private final static StartStage startStageInstance = new StartStage();
+    public String userName="";
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
     private int x= Constants.WIDTH.getValue()/2;
 
     private int y= Constants.HEIGHT.getValue()/2;
@@ -23,7 +33,7 @@ public class StartStage {
     }
 
     public boolean loginFailed;
-    public String Message ="Please";
+    public String Message ="Please type your username and hit enter";
 
     public String getMessage() {
         return Message;

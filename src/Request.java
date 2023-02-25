@@ -1,18 +1,15 @@
 public class Request {
 
-        private String userName;
+        private String inputText;
 
 
-        public Request(String userName) {
-            this.userName= userName;
+    public String getInputText() {
+        return inputText;
+    }
+
+    public Request(String inputText) {
+            this.inputText= inputText;
         }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 }
 
