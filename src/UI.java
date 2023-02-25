@@ -7,7 +7,12 @@ import java.util.Random;
 
 public class UI extends PApplet {
     private String stringForUser =StartStage.getInstance().prinsStringForUser(0);
+    private static  boolean mouseOverCircle1 = false;
+    private static  boolean mouseOverCircle2 = false;
     Rectangle rectangle = new Rectangle(0,0,0,0);
+    int R;
+    int G;
+    int B;
 
 
     public int count;
@@ -122,50 +127,44 @@ public class UI extends PApplet {
             text(StartStage.getInstance().getMessage(), Constants.WIDTH.getValue()/2,Constants.HEIGHT.getValue()/2+Constants.rectYdistance.getValue()+30);
 
 
-         /*   if(StartStage.getInstance().loginFailed){
-                System.out.println("kokt");
-                textSize(30);
-                text(StartStage.getInstance().prinsStringForUser(1), Constants.WIDTH.getValue()/2,Constants.HEIGHT.getValue()/2+Constants.rectYdistance.getValue()+30);
-            }
-
-            if(!StartStage.getInstance().loginFailed) {
-                textSize(30);
-                text(StartStage.getInstance().prinsStringForUser(0), Constants.WIDTH.getValue() / 2, Constants.HEIGHT.getValue() / 2 + Constants.rectYdistance.getValue() + 30);
-            }*/
-
-
-           /* for(GTextField t : textFieldLetters){
-                 t.draw();
-
-            }*/
-            // textField.draw();
-
-
-
 
         }
 
         if (!showMainStage) {
-            fill(0, 0, 255);
 
             textFont(StartStage.getInstance().f);
-            //textAlign(CENTER);
-            //text(StartStage.getInstance().printWelcomeText(),width/2,60);
-
             textAlign(CENTER);
-            text(StartStage.getInstance().logIn(), Circle.allCircels[0].getCordX(), Circle.allCircels[0].getCordY() + Circle.allCircels[0].getDiameter());
-            textAlign(CENTER);
-            text(StartStage.getInstance().register(), Circle.allCircels[1].getCordX(), Circle.allCircels[1].getCordY() + Circle.allCircels[1].getDiameter());
-
-
-            // println(StartStage.getInstance().printWelcomeText());
 
             for (int i = 0; i < Circle.allCircels.length; i++) {
-                circle(Circle.allCircels[i].getCordX(), Circle.allCircels[i].getCordY(), Circle.allCircels[i].getDiameter());
-            }
+
+                    this.fillCircleWithColour2(Circle.allCircels[i]);
+
+                if (mouseOverCircle1 && i == 0) {
+                    this.fillCircleWithColour(Circle.allCircels[i]);
+                }
+                    if (mouseOverCircle2 && i==1) {
+                        this.fillCircleWithColour(Circle.allCircels[i]);
+                    }
+                    if(i==0){
+                        text(StartStage.getInstance().logIn(), Circle.allCircels[i].getCordX(), Circle.allCircels[i].getCordY() + Circle.allCircels[i].getDiameter());
+
+                    }
+                    if(i==1){
+                        text(StartStage.getInstance().register(), Circle.allCircels[i].getCordX(), Circle.allCircels[i].getCordY() + Circle.allCircels[i].getDiameter());
+                    }
+
+                    circle(Circle.allCircels[i].getCordX(), Circle.allCircels[i].getCordY(), Circle.allCircels[i].getDiameter());
 
 
-            // text(StartStage.getInstance().printWelcomeText(),WIDTH/2, 50);
+
+                }
+
+
+
+
+
+
+
         }
 
         if (showMainStage) {
@@ -307,17 +306,42 @@ public class UI extends PApplet {
 
     @Override
     public void mouseMoved() {
+        checkIfMouseOverCircle();
 
-        if (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[0].getCordX(), Circle.allCircels[0].getCordY(), Circle.allCircels[0].getDiameter()) || (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[1].getCordX(), Circle.allCircels[1].getCordY(), Circle.allCircels[1].getDiameter()))) {
-            //fill(204, 102, 0);
 
-            //pushStyle();  // Start a new style
-            // strokeWeight(40);
-            fill(204, 153, 0);
-            //circle(Circle.allCircels[i].getCordX(), Circle.allCircels[i].getCordY(), Circle.allCircels[i].getDiameter());
-        } else {
-            fill(40, 66, 159);
+
+    }
+    private void checkIfMouseOverCircle(){
+        mouseOverCircle1=false;
+        mouseOverCircle2=false;
+        if(StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[0].getCordX(), Circle.allCircels[0].getCordY(), Circle.allCircels[0].getDiameter())){
+            mouseOverCircle1=true;
+            mouseOverCircle2=false;
         }
+        if((StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[1].getCordX(), Circle.allCircels[1].getCordY(), Circle.allCircels[1].getDiameter()))) {
+            mouseOverCircle2=true;
+            mouseOverCircle1=false;
+
+
+        }
+
+
+
+
+
+
+    }
+
+    public void fillCircleWithColour(Circle circle){
+        int [] rgb = circle.getDefaultCircleColor();
+        fill(rgb[0],rgb[1],rgb[2]);
+
+
+    }
+
+    public void fillCircleWithColour2(Circle circle){
+        int [] rgb = circle.getCIRCLE_COLOR_2();
+        fill(rgb[0],rgb[1],rgb[2]);
 
 
     }
@@ -354,7 +378,12 @@ public class UI extends PApplet {
     }
     @Override
     public void keyPressed() {
+        handleTextField();
 
+
+
+    }
+    public void handleTextField(){
         // Start typing on any key press
         typing = true;
 
@@ -367,15 +396,33 @@ public class UI extends PApplet {
             cursorPos--;
         } else if(keyCode == ENTER){
 
-            //chain of responsibility find if user exist in database
-            loginHandler  userExist = new userExist();
-            loginHandler userDontExist = new userDontExist();
+            switch(StartStage.getInstance().getMessage()){  // get text written below the text field
+                case "Please", "User not found":
+                    //System.out.println("kokot");
+                    userExist.getInstance().handle(new Request(inputText));
+                    if(userExist.getInstance().b){
+                        inputText="";
+                        userExist.getInstance().setNext(passwordHandler.getInstance());
+                        passwordHandler.getInstance().handle(new Request(inputText));
+                    }
+                    break;
 
-            userExist.setNext(userDontExist);
-            userExist.handle(new Request(inputText));
+
+            }
+
+
+            //chain of responsibility find if user exist in database
+            /*loginHandler  userExist = new userExist();
+            loginHandler userDontExist = new passwordHandler();*/
+
+            // userExist.getInstance().setNext(passwordHandler);
+
+
             System.out.println(StartStage.getInstance().getMessage());
 
         }
+
+
     }
 
 

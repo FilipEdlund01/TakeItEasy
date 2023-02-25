@@ -23,7 +23,7 @@ public class StartStage {
     }
 
     public boolean loginFailed;
-    public String Message ="Type your username and hit enter";
+    public String Message ="Please";
 
     public String getMessage() {
         return Message;
@@ -84,16 +84,8 @@ public class StartStage {
 
 
     public boolean overCircle( int mouseX, int mouseY,int circleX,int circleY,int diameter) {
-      /*  for (int i=0; i < Circle.allCircels.length; i++){
-            float disX = Circle.allCircels[i].getCordX() - mouseX;
-            float disY = Circle.allCircels[i].getCordY() - mouseY;
-            if (sqrt(sq(disX) + sq(disY)) < Circle.allCircels[i].getDiameter() / 2) {
-                return true;
-            } else {
-                return false;
-            }
 
-        }*/
+
 
         float disX = circleX - mouseX;
         float disY = circleY - mouseY;
