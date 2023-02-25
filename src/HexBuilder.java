@@ -131,15 +131,7 @@ public class HexBuilder {
 
 
 
-    public void printLines(){
-        for (int[] initLine : this.initLines) {
-            for (int n = 0; n <= 2; n++) {
-                System.out.print(initLine[n]);
-            }
-            System.out.println("       ");
 
-        }
-    }
 
 
 

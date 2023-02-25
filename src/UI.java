@@ -414,7 +414,21 @@ public class UI extends PApplet {
                         cursorPos=0;
                         inputText="";
                         System.out.println("found password");
+                        rectangleSimulation rectsim = new rectangleSimulation();
+                        rectsim.start();
+
+                        while (rectsim.isAlive()){
+                            System.out.println("a");
+
+                        }
+                        System.out.println("Thread finished");
                         showMainStage=true;
+
+
+
+
+
+
 
                     }
                     break;
