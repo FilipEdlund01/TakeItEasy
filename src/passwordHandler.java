@@ -10,16 +10,17 @@ public class passwordHandler implements loginHandler {
     }
 
     public void handle(Request request) {
-        API.getInstance().CheckPassword(StartStage.getInstance().getUserName(), request.getInputText()); // make the sql request to database
-        if(API.getInstance().isPasswordFound()){
 
-            StartStage.getInstance().setMessage("correct password");
+        if(API.getInstance().CheckPassword(StartStage.getInstance().getUserName(), request.getInputText())){
+
+            StartStage.getInstance().setMessage("");
 
             b=true;
 
         }else{
             b=false;
-            StartStage.getInstance().setMessage("password");
+            System.out.println("incorect password");
+            StartStage.getInstance().setMessage("incorrect password");
         }
         // System.out.println("User does not exist");
         // StartStage.getInstance().setLoginFailed(true);

@@ -14,8 +14,8 @@ public class userExist implements loginHandler{
     }
 
     public void handle(Request request) {
-        API.getInstance().findUserInDatabase(request.getInputText()); // make the sql request to database
-        if(API.getInstance().isUserFound()){
+
+        if(API.getInstance().CheckIfUSerExistInDatabase(request.getInputText())){
             StartStage.getInstance().setUserName(request.getInputText());
             StartStage.getInstance().setMessage("User found, type password");
 

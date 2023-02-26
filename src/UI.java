@@ -414,13 +414,14 @@ public static UI getInstance(){
         typing = true;
 
         // Handle keyboard input
-        if (key >= ' ') {
-            inputText = inputText.substring(0, cursorPos) + key + inputText.substring(cursorPos);
+        if (key >' ')  {
+
+            inputText = inputText.substring(0, cursorPos) + inputText.substring(cursorPos)+key;
             cursorPos++;
         } else if (keyCode == BACKSPACE && cursorPos > 0) {
             inputText = inputText.substring(0, cursorPos - 1) + inputText.substring(cursorPos);
             cursorPos--;
-        } else if(keyCode == ENTER){
+        } else if(keyCode == ENTER&& !inputText.isEmpty()){
 
             switch(StartStage.getInstance().getMessage()) {  // get text written below the text field
                 case "Please type your username and hit enter", "User not found":
@@ -429,11 +430,12 @@ public static UI getInstance(){
                     if (userExist.getInstance().b) {
                         cursorPos = 0;
                         inputText = "";
+                        StartStage.getInstance().setMessage("User found, type password");
                        // userExist.getInstance().setNext(passwordHandler.getInstance());
 
                     }
                     break;
-                case "User found, type password":
+                case "User found, type password","incorrect password":
                     passwordHandler.getInstance().handle(new Request(inputText));
                     if (passwordHandler.getInstance().b) {
                         cursorPos = 0;
@@ -444,11 +446,12 @@ public static UI getInstance(){
                         CicrcleSimulation circlesimulation = new CicrcleSimulation();
                         circlesimulation.start();
                         rectsim.start();
-                        break;
+
 
 
 
                     }
+                    break;
                 case "Please type username you want to have","User with same name already exist ): try something else":
                     handleNewUser.getInstance().handle(new Request(inputText));
                     if(handleNewUser.getInstance().b){
@@ -457,9 +460,10 @@ public static UI getInstance(){
                         StartStage.getInstance().setMessage("Please type password you want to have");
 
 
-                        break;
+
 
                     }
+                    break;
 
                 case "Please type password you want to have":
 
@@ -471,13 +475,13 @@ public static UI getInstance(){
                         CicrcleSimulation circlesimulation = new CicrcleSimulation();
                         circlesimulation.start();
                         rectsim.start();
-                        break;
 
 
 
 
 
 
+                    break;
             }
 
 
