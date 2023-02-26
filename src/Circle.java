@@ -35,6 +35,10 @@ public class Circle {
         Diameter = diameter;
     }
 
+    public void setCordX(int cordX) {
+        CordX = cordX;
+    }
+
     public static Circle[] allCircels = new Circle[2];
     public Circle(int xCords, int yCords, int diameter) {
 

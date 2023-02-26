@@ -33,7 +33,7 @@ public class StartStage {
     }
 
     public boolean loginFailed;
-    public String Message ="Please type your username and hit enter";
+    public String Message ="Click on the buttons to start";
 
     public String getMessage() {
         return Message;
@@ -48,9 +48,7 @@ public class StartStage {
     }
 
 
-    public void setCircleDiameter(int diameter) {
-        this.diameter = diameter;
-    }
+
 
     private StartStage() {
 
@@ -62,8 +60,8 @@ public class StartStage {
             Circle.allCircels[i] = new Circle()
         }*/
 
-        Circle.allCircels[0] = new Circle(x-Constants.WIDTH.getValue()/3,y,diameter);
-        Circle.allCircels[1] = new Circle(x+Constants.WIDTH.getValue()/3,y,diameter);
+        Circle.allCircels[0] = new Circle(x-Constants.WIDTH.getValue()/3,y,Constants.diameter.getValue());
+        Circle.allCircels[1] = new Circle(x+Constants.WIDTH.getValue()/3,y,Constants.diameter.getValue());
        // Circle.allCircels[2] = new Circle(-1,-1,-1);//avoid out of bounds exception
 
 
@@ -72,17 +70,6 @@ public class StartStage {
     public void buildRects(){
         Rectangle.allRectangels[0]=new Rectangle(Constants.rectx0.getValue(), Constants.recty0.getValue(), Constants.rectXdistance.getValue(),Constants.rectYdistance.getValue());
 
-    }
-    public String prinsStringForUser(int n){
-        String s ="";
-        if(n==0){
-            s="Please type your username";
-        } else if (n==1) {
-            s="User not found";
-
-        }
-
-        return s;
     }
 
     public static StartStage getInstance() {

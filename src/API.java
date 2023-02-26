@@ -29,7 +29,7 @@ public class API {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from users");
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("uid"));
+                //System.out.println(resultSet.getString("uid"));
             }
             statement.close();
             connection.close();
@@ -49,7 +49,7 @@ public class API {
           /*  System.out.println(resultSet.getString("uid"));*/
             while (resultSet.next()) {
                 index++;
-                System.out.println(resultSet.getString("uid"));
+               // System.out.println(resultSet.getString("uid"));
                 setUserFound(true);
             }
             if(index==1){
@@ -73,7 +73,7 @@ public class API {
 
         //SELECT * FROM users WHERE uid = 'filip' AND passwd = 'k'
         String request = "SELECT * FROM users WHERE uid =" + "'" + username + "'" +" AND passwd =" + "'" + password + "'" +";";
-        ;
+
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
@@ -82,11 +82,11 @@ public class API {
             /*  System.out.println(resultSet.getString("uid"));*/
             while (resultSet.next()) {
                 index++;
-                System.out.println(resultSet.getString("passwd"));
+
                 setPasswordFound(true);
             }
             if(index==1){
-                System.out.println("password not found");
+
                 setPasswordFound(false);
             }
             statement.close();
@@ -101,33 +101,87 @@ public class API {
 
     }
 
-    public void InsertNewUserToDatabase(){
+    public boolean CheckIfUSerExistInDatabase(String name){
+        String request ="SELECT * FROM users where uid ="+ "'" + name + "'"+";";
+        int index =1;
+        boolean b =true;
+
+
         try {
-            // Load the JDBC driver
-            //Class.forName("com.mysql.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(request);
+            /*  System.out.println(resultSet.getString("uid"));*/
+            while (resultSet.next()) {
+                System.out.println(name);
+                index++;
 
-            // Establish a connection
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy","root","root");
 
-            // Create a statement
-            Statement stmt = conn.createStatement();
 
-            // Write the SQL query
-         //   String sql = "INSERT INTO users (uid, passwd) VALUES ('John Doe', 30)";
-
-            // Execute the query
-         //   int rows = stmt.executeUpdate(sql);
-
-          //  System.out.println(rows + " row(s) affected");
-
-            // Close the statement and connection
-            stmt.close();
-            conn.close();
-        } catch (Exception ex) {
+            }
+            if(index==1){
+              b=false;
+            }
+            statement.close();
+            connection.close();
+        }catch (Exception ex) {
             ex.printStackTrace();
         }
 
+        return  b;
+
     }
+
+
+    public void InsertNewUserIntoDataBase(String username,String password){
+
+
+        //SELECT * FROM users WHERE uid = 'filip' AND passwd = 'k'
+       // String request = "SELECT * FROM users WHERE uid =" + "'" + username + "'" +" AND passwd =" + "'" + password + "'" +";";
+
+        String request = "INSERT INTO users (uid, passwd) VALUES" + "("+ "'" +username+"'"+","+"'"+password+"'"+");";
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+
+
+
+        try {
+             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
+            statement = connection.prepareStatement(request);
+
+            int rowsAffected = statement.executeUpdate();
+            System.out.println(rowsAffected + " row(s) inserted");
+
+
+
+
+
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+
+
+
+
+    }
+
 
     public static API getInstance(){
         return api;

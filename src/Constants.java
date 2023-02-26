@@ -10,6 +10,7 @@ public enum Constants {
     recty0(-100), // so it cant be seen at first
     rectXdistance(200),
     rectYdistance(30),
+    diameter(1000), //circle diameter at beginning
     userFound(0);
 
 

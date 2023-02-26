@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class UI extends PApplet {
-    private String stringForUser =StartStage.getInstance().prinsStringForUser(0);
+
     private static  boolean mouseOverCircle1 = false;
     private static  boolean mouseOverCircle2 = false;
     Rectangle rectangle = new Rectangle(0,0,0,0);
@@ -33,9 +33,14 @@ public class UI extends PApplet {
 
 
     public boolean showMainStage = false;
+
+
+
+
+
     static int randomInt;
     private boolean firstCircleClicked = false;
-    private boolean secondBooleanClicked = false;
+    private boolean secondCircleClicked = false;
 
 
     String inputText = "";
@@ -50,7 +55,11 @@ public class UI extends PApplet {
     /*public static void setRectX(int rectX) {
         this.rectX = rectX;
     }*/
+private final static UI ui = new UI();
 
+public static UI getInstance(){
+    return ui;
+}
 
 
     @Override
@@ -74,14 +83,9 @@ public class UI extends PApplet {
 
 
 
-        try {
-            API.getInstance().readFromDatabase();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
 
-        API.getInstance().InsertNewUserToDatabase();
+
 
         Arrays.fill(forbidenNumbers, true);
         StartStage.getInstance().setF(createFont("Arial", 50, true));
@@ -100,7 +104,7 @@ public class UI extends PApplet {
     @Override
     public void draw() {
 
-
+        testMainSTAGE();
         frameRate(100);
 
 
@@ -117,6 +121,19 @@ public class UI extends PApplet {
 
 
         if(firstCircleClicked){
+            fill(255,255,255);
+            rect(Rectangle.allRectangels[0].getCordX(),Rectangle.allRectangels[0].getCordY(), Rectangle.allRectangels[0].getWIDHT(), Rectangle.allRectangels[0].getHEIGHT());
+
+            fill(0);
+            textSize(25);
+            text(inputText, Constants.WIDTH.getValue()/2, Constants.HEIGHT.getValue()/2+Constants.rectYdistance.getValue()-5);
+            textSize(30);
+            text(StartStage.getInstance().getMessage(), Constants.WIDTH.getValue()/2,Constants.HEIGHT.getValue()/2+Constants.rectYdistance.getValue()+30);
+
+
+
+        }
+        if(secondCircleClicked){
             fill(255,255,255);
             rect(Rectangle.allRectangels[0].getCordX(),Rectangle.allRectangels[0].getCordY(), Rectangle.allRectangels[0].getWIDHT(), Rectangle.allRectangels[0].getHEIGHT());
 
@@ -208,16 +225,24 @@ public class UI extends PApplet {
     @Override
     public void mouseClicked() {
         if (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[0].getCordX(), Circle.allCircels[0].getCordY(), Circle.allCircels[0].getDiameter())) {
-            System.out.println("First circle");
-            rectangleSimulation rectsim = new rectangleSimulation();
-            rectsim.start();
+
+            rectangleSimulation rectsim1 = new rectangleSimulation(1);
+            rectsim1.start();
             // showMainStage = true;
+            StartStage.getInstance().setMessage("Please type your username and hit enter");
 
             firstCircleClicked=true;
+            secondCircleClicked=false;
+
 
         }
         if (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[1].getCordX(), Circle.allCircels[1].getCordY(), Circle.allCircels[1].getDiameter())) {
-            System.out.println("Second circle");
+            System.out.println("kokot");
+            rectangleSimulation rectsim2 = new rectangleSimulation(2);
+            rectsim2.start();
+            StartStage.getInstance().setMessage("Please type username you want to have");
+            firstCircleClicked=false;
+            secondCircleClicked=true;
           //  API.getInstance().CheckPassword("filip","kk");
             // showMainStage = true;
         }
@@ -397,51 +422,66 @@ public class UI extends PApplet {
             cursorPos--;
         } else if(keyCode == ENTER){
 
-            switch(StartStage.getInstance().getMessage()){  // get text written below the text field
+            switch(StartStage.getInstance().getMessage()) {  // get text written below the text field
                 case "Please type your username and hit enter", "User not found":
                     //System.out.println("kokot");
                     userExist.getInstance().handle(new Request(inputText));
-                    if(userExist.getInstance().b){
-                        cursorPos=0;
-                        inputText="";
-                        userExist.getInstance().setNext(passwordHandler.getInstance());
+                    if (userExist.getInstance().b) {
+                        cursorPos = 0;
+                        inputText = "";
+                       // userExist.getInstance().setNext(passwordHandler.getInstance());
 
                     }
                     break;
                 case "User found, type password":
                     passwordHandler.getInstance().handle(new Request(inputText));
-                    if(passwordHandler.getInstance().b){
-                        cursorPos=0;
-                        inputText="";
+                    if (passwordHandler.getInstance().b) {
+                        cursorPos = 0;
+                        inputText = "";
+                        StartStage.getInstance().setMessage("");
                         System.out.println("found password");
-                        rectangleSimulation rectsim = new rectangleSimulation();
+                        rectangleSimulation rectsim = new rectangleSimulation(3);
+                        CicrcleSimulation circlesimulation = new CicrcleSimulation();
+                        circlesimulation.start();
                         rectsim.start();
-
-                        while (rectsim.isAlive()){
-                            System.out.println("a");
-
-                        }
-                        System.out.println("Thread finished");
-                        showMainStage=true;
-
-
-
-
+                        break;
 
 
 
                     }
-                    break;
+                case "Please type username you want to have","User with same name already exist ): try something else":
+                    handleNewUser.getInstance().handle(new Request(inputText));
+                    if(handleNewUser.getInstance().b){
+                        cursorPos = 0;
+                        inputText = "";
+                        StartStage.getInstance().setMessage("Please type password you want to have");
+
+
+                        break;
+
+                    }
+
+                case "Please type password you want to have":
+
+                    System.out.println(StartStage.getInstance().getUserName());
+
+                    API.getInstance().InsertNewUserIntoDataBase(StartStage.getInstance().getUserName(), inputText);
+
+                       rectangleSimulation rectsim = new rectangleSimulation(3);
+                        CicrcleSimulation circlesimulation = new CicrcleSimulation();
+                        circlesimulation.start();
+                        rectsim.start();
+                        break;
+
+
+
+
 
 
             }
 
 
-            //chain of responsibility find if user exist in database
-            /*loginHandler  userExist = new userExist();
-            loginHandler userDontExist = new passwordHandler();*/
 
-            // userExist.getInstance().setNext(passwordHandler);
 
 
             System.out.println(StartStage.getInstance().getMessage());
@@ -449,6 +489,12 @@ public class UI extends PApplet {
         }
 
 
+    }
+    private void testMainSTAGE(){
+    if(Rectangle.allRectangels[0].getCordY() == -Rectangle.allRectangels[0].getHEIGHT()*2){
+        inputText="";
+        showMainStage=true;
+    }
     }
 
 
