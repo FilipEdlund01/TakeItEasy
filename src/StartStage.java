@@ -43,9 +43,6 @@ public class StartStage {
         this.Message = message;
     }
 
-    public void setLoginFailed(boolean loginFailed) {
-        this.loginFailed = loginFailed;
-    }
 
 
 

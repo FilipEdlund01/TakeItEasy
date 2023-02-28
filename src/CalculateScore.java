@@ -34,9 +34,9 @@ public class CalculateScore {
         int a5;
 
 
-        a1 = HexBoard.evaluateHexLine(0,0,HexBuilder.LINE_UP_INDEX);
-        a2 = HexBoard.evaluateHexLine(0,1,HexBuilder.LINE_UP_INDEX);
-        a3 = HexBoard.evaluateHexLine(0,2,HexBuilder.LINE_UP_INDEX);
+        a1 = HexBoard.evaluateHexLine(0,0,Constants.LINE_UP_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(0,1,Constants.LINE_UP_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(0,2,Constants.LINE_UP_INDEX.getValue());
         if(a1==a2 && a2 ==a3){
             first_row_down = a1*3;
         }else {
@@ -44,10 +44,10 @@ public class CalculateScore {
         }
 
         //evaluating second column down
-        a1 = HexBoard.evaluateHexLine(1,0,HexBuilder.LINE_UP_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,1,HexBuilder.LINE_UP_INDEX);
-        a3 = HexBoard.evaluateHexLine(1,2,HexBuilder.LINE_UP_INDEX);
-        a4 = HexBoard.evaluateHexLine(1,3,HexBuilder.LINE_UP_INDEX);
+        a1 = HexBoard.evaluateHexLine(1,0,Constants.LINE_UP_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(1,1,Constants.LINE_UP_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(1,2,Constants.LINE_UP_INDEX.getValue());
+        a4 = HexBoard.evaluateHexLine(1,3,Constants.LINE_UP_INDEX.getValue());
 
         if(a1==a2 && a2 == a3 && a3 ==a4){
             second_row_down = a1*4;
@@ -57,11 +57,11 @@ public class CalculateScore {
 
         //evaluating third column down
 
-        a1 = HexBoard.evaluateHexLine(2,0,HexBuilder.LINE_UP_INDEX);
-        a2 = HexBoard.evaluateHexLine(2,1,HexBuilder.LINE_UP_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,2,HexBuilder.LINE_UP_INDEX);
-        a4 = HexBoard.evaluateHexLine(2,3,HexBuilder.LINE_UP_INDEX);
-        a5 = HexBoard.evaluateHexLine(2,4,HexBuilder.LINE_UP_INDEX);
+        a1 = HexBoard.evaluateHexLine(2,0,Constants.LINE_UP_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(2,1,Constants.LINE_UP_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(2,2,Constants.LINE_UP_INDEX.getValue());
+        a4 = HexBoard.evaluateHexLine(2,3,Constants.LINE_UP_INDEX.getValue());
+        a5 = HexBoard.evaluateHexLine(2,4,Constants.LINE_UP_INDEX.getValue());
 
         if(a1==a2 && a2 == a3 && a3 == a4 && a4 == a5){
             third_row_down = a1*5;
@@ -70,10 +70,10 @@ public class CalculateScore {
         }
 
         //evaluating fourth column down
-        a1 = HexBoard.evaluateHexLine(3,0,HexBuilder.LINE_UP_INDEX);
-        a2 = HexBoard.evaluateHexLine(3,1,HexBuilder.LINE_UP_INDEX);
-        a3 = HexBoard.evaluateHexLine(3,2,HexBuilder.LINE_UP_INDEX);
-        a4 = HexBoard.evaluateHexLine(3,3,HexBuilder.LINE_UP_INDEX);
+        a1 = HexBoard.evaluateHexLine(3,0,Constants.LINE_UP_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(3,1,Constants.LINE_UP_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(3,2,Constants.LINE_UP_INDEX.getValue());
+        a4 = HexBoard.evaluateHexLine(3,3,Constants.LINE_UP_INDEX.getValue());
 
         if(a1==a2 && a2 == a3 && a3 ==a4){
             fourth_row_down = a1*4;
@@ -83,9 +83,9 @@ public class CalculateScore {
 
         //evaluating fifth column
 
-        a1 = HexBoard.evaluateHexLine(4,0,HexBuilder.LINE_UP_INDEX);
-        a2 = HexBoard.evaluateHexLine(4,1,HexBuilder.LINE_UP_INDEX);
-        a3 = HexBoard.evaluateHexLine(4,2,HexBuilder.LINE_UP_INDEX);
+        a1 = HexBoard.evaluateHexLine(4,0,Constants.LINE_UP_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(4,1,Constants.LINE_UP_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(4,2,Constants.LINE_UP_INDEX.getValue());
         if(a1==a2 && a2 ==a3){
             fifth_row_down = a1*3;
         }else {
@@ -98,9 +98,9 @@ public class CalculateScore {
 
         //evaluating the left down diagonal line from HexBoard[0][0]
 
-        a1 = HexBoard.evaluateHexLine(0,0,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,0,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,0,HexBuilder.LINE_LEFT_DOWN_INDEX);
+        a1 = HexBoard.evaluateHexLine(0,0,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(1,0,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(2,0,Constants.LINE_LEFT_DOWN_INDEX.getValue());
 
 
         if(a1==a2 && a2==a3){
@@ -114,10 +114,10 @@ public class CalculateScore {
 
         //evaluating the left down diagonal line from HexBoard[0][1]
 
-        a1 = HexBoard.evaluateHexLine(0,1,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,1,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,1,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(3,0,HexBuilder.LINE_LEFT_DOWN_INDEX);
+        a1 = HexBoard.evaluateHexLine(0,1,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(1,1,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(2,1,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a4 = HexBoard.evaluateHexLine(3,0,Constants.LINE_LEFT_DOWN_INDEX.getValue());
 
 
         if(a1==a2 && a2==a3 && a3 ==a4){
@@ -130,11 +130,11 @@ public class CalculateScore {
 
         //evaluating the left down diagonal line from HexBoard[0][2]
 
-        a1 = HexBoard.evaluateHexLine(0,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(3,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a5 = HexBoard.evaluateHexLine(4,0,HexBuilder.LINE_LEFT_DOWN_INDEX);
+        a1 = HexBoard.evaluateHexLine(0,2,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(1,2,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(2,2,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a4 = HexBoard.evaluateHexLine(3,2,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a5 = HexBoard.evaluateHexLine(4,0,Constants.LINE_LEFT_DOWN_INDEX.getValue());
 
 
         if(a1==a2 && a2 == a3 && a3 == a4 && a4 == a5){
@@ -147,10 +147,10 @@ public class CalculateScore {
 
         //evaluating the left down diagonal line from HexBoard[1][3]
 
-        a1 = HexBoard.evaluateHexLine(1,3,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(2,3,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(3,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(4,1,HexBuilder.LINE_LEFT_DOWN_INDEX);
+        a1 = HexBoard.evaluateHexLine(1,3,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(2,3,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(3,2,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a4 = HexBoard.evaluateHexLine(4,1,Constants.LINE_LEFT_DOWN_INDEX.getValue());
 
 
 
@@ -164,9 +164,9 @@ public class CalculateScore {
 
         //evaluating the left down diagonal line from HexBoard[2][4]
 
-        a1 = HexBoard.evaluateHexLine(2,4,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(3,3,HexBuilder.LINE_LEFT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(4,2,HexBuilder.LINE_LEFT_DOWN_INDEX);
+        a1 = HexBoard.evaluateHexLine(2,4,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(3,3,Constants.LINE_LEFT_DOWN_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(4,2,Constants.LINE_LEFT_DOWN_INDEX.getValue());
 
 
 
@@ -180,9 +180,9 @@ public class CalculateScore {
         }
 
         //evaluating the right down diagonal line from HexBoard[2][0]
-        a1 = HexBoard.evaluateHexLine(2,0,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(3,0,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(4,0,HexBuilder.LINE_RIGHT_DOWN_INDEX);
+        a1 = HexBoard.evaluateHexLine(2,0,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(3,0,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(4,0,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
 
 
 
@@ -196,10 +196,10 @@ public class CalculateScore {
         }
         //evaluating the right down diagonal line from HexBoard[1][0]
 
-        a1 = HexBoard.evaluateHexLine(1,0,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(2,1,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(3,1,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(4,1,HexBuilder.LINE_RIGHT_DOWN_INDEX);
+        a1 = HexBoard.evaluateHexLine(1,0,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(2,1,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(3,1,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a4 = HexBoard.evaluateHexLine(4,1,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
 
 
 
@@ -213,11 +213,11 @@ public class CalculateScore {
         }
         //evaluating the right down diagonal line from HexBoard[0][0]
 
-        a1 = HexBoard.evaluateHexLine(0,0,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,1,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,2,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(3,2,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a5 = HexBoard.evaluateHexLine(4,2,HexBuilder.LINE_RIGHT_DOWN_INDEX);
+        a1 = HexBoard.evaluateHexLine(0,0,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(1,1,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(2,2,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a4 = HexBoard.evaluateHexLine(3,2,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a5 = HexBoard.evaluateHexLine(4,2,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
 
 
 
@@ -232,10 +232,10 @@ public class CalculateScore {
 
         //evaluating the right down diagonal line from HexBoard[0][1]
 
-        a1 = HexBoard.evaluateHexLine(0,1,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,2,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,3,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a4 = HexBoard.evaluateHexLine(3,3,HexBuilder.LINE_RIGHT_DOWN_INDEX);
+        a1 = HexBoard.evaluateHexLine(0,1,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(1,2,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(2,3,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a4 = HexBoard.evaluateHexLine(3,3,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
 
 
 
@@ -250,9 +250,9 @@ public class CalculateScore {
 
         //evaluating the right down diagonal line from HexBoard[0][2]
 
-        a1 = HexBoard.evaluateHexLine(0,2,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a2 = HexBoard.evaluateHexLine(1,3,HexBuilder.LINE_RIGHT_DOWN_INDEX);
-        a3 = HexBoard.evaluateHexLine(2,4,HexBuilder.LINE_RIGHT_DOWN_INDEX);
+        a1 = HexBoard.evaluateHexLine(0,2,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a2 = HexBoard.evaluateHexLine(1,3,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
+        a3 = HexBoard.evaluateHexLine(2,4,Constants.LINE_RIGHT_DOWN_INDEX.getValue());
 
 
 

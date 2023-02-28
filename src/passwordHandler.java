@@ -22,8 +22,7 @@ public class passwordHandler implements loginHandler {
             System.out.println("incorect password");
             StartStage.getInstance().setMessage("incorrect password");
         }
-        // System.out.println("User does not exist");
-        // StartStage.getInstance().setLoginFailed(true);
+
 
 
      }

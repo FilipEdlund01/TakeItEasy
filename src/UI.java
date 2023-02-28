@@ -139,7 +139,7 @@ public static UI getInstance(){
 
         }
 
-        if (!showMainStage) {
+      if (!showMainStage) {
 
             textFont(StartStage.getInstance().f);
             textAlign(CENTER);
@@ -177,20 +177,27 @@ public static UI getInstance(){
         }
 
         if (showMainStage) {
-            fill(255,255,255);
-            hexagon(HexBoard.hexBoard[0][0].getXCords(),HexBoard.hexBoard[0][0].getYCords(), HexCard.HEX_SIDE_SIZE);
-
-
-            // draw board
-            for (HexBoard[] hexanBoardColumn : HexBoard.hexBoard) {
-                for (HexBoard hexanBoard : hexanBoardColumn) {
-                    this.fillWithHexColor(hexanBoard);
-                    hexagon(hexanBoard.getXCords(), hexanBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
-                    if (hexanBoard.occupiedHexCard != null) {
-                        showImage(hexanBoard.occupiedHexCard);
+            if(count>18){
+                int result = CalculateScore.calculateScore();
+                inputText = "Tvoje score: " + result;
+                textSize(30);
+                fill(255,255,255);
+                text(inputText,100,100 );
+            }else{
+                // draw board
+                for (HexBoard[] hexanBoardColumn : HexBoard.hexBoard) {
+                    for (HexBoard hexanBoard : hexanBoardColumn) {
+                        this.fillWithHexColor(hexanBoard);
+                        hexagon(hexanBoard.getXCords(), hexanBoard.getYCords(), HexCard.HEX_SIDE_SIZE);
+                        if (hexanBoard.occupiedHexCard != null) {
+                            showImage(hexanBoard.occupiedHexCard);
+                        }
                     }
                 }
+
             }
+
+
 
 
 
@@ -264,7 +271,7 @@ public static UI getInstance(){
 
     @Override
     public void mouseReleased() {
-        //   System.out.println(HexBoard.evaluateLine(0,0,0));
+
         if (!isHoldingCard) return;
 
         HexBoard foundHexBoard = null;
@@ -360,6 +367,8 @@ public static UI getInstance(){
             System.out.println("konec hry");
             int result = CalculateScore.calculateScore();
             System.out.println("Tvoje score " + result);
+
+
 
 
         }

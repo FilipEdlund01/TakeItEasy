@@ -2,9 +2,9 @@
 public class HexBuilder {
     // singleton
     private final static HexBuilder hexBuilderInstance = new HexBuilder();
-    public final static int LINE_UP_INDEX = 0;
-    public final static int LINE_RIGHT_DOWN_INDEX = 1;
-    public final static int LINE_LEFT_DOWN_INDEX = 2;
+
+
+
 
     public int[][] initLines;
     private HexBuilder(){
@@ -56,9 +56,8 @@ public class HexBuilder {
             int[] init_lines = HexBuilder.getInstance().initLines[i];
 
 
-            HexCard.allHexans[i] = new HexCard(0, 50, init_lines,
-                    "images/hex"+init_lines[0]+init_lines[1]+init_lines[2]+".png");
-            System.out.println(init_lines[0]);
+            HexCard.allHexans[i] = new HexCard(0, 50, init_lines, "images/hex"+init_lines[0]+init_lines[1]+init_lines[2]+".png");
+
 
         }
     }
@@ -82,7 +81,7 @@ public class HexBuilder {
                 column[y] = new HexBoard(x, y, xCords, yCords);
                yCords += HexCard.DISTANCE_BETWEEN_HEX*2;
 
-                //yCords += (HexCard.HEX_SIDE_SIZE-10)*2;
+
             }
             HexBoard.hexBoard[x] = column;
 

@@ -11,6 +11,9 @@ public enum Constants {
     rectXdistance(200),
     rectYdistance(30),
     diameter(1000), //circle diameter at beginning
+    LINE_UP_INDEX (0),
+    LINE_RIGHT_DOWN_INDEX (1),
+    LINE_LEFT_DOWN_INDEX(2),
     userFound(0);
 
 
