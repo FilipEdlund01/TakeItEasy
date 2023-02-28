@@ -177,6 +177,8 @@ public static UI getInstance(){
         }
 
         if (showMainStage) {
+            fill(255,255,255);
+            hexagon(HexBoard.hexBoard[0][0].getXCords(),HexBoard.hexBoard[0][0].getYCords(), HexCard.HEX_SIDE_SIZE);
 
 
             // draw board
@@ -189,6 +191,8 @@ public static UI getInstance(){
                     }
                 }
             }
+
+
 
 
             showImage(HexCard.allHexans[randomInt]);
@@ -481,7 +485,7 @@ public static UI getInstance(){
 
         }
         if (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[1].getCordX(), Circle.allCircels[1].getCordY(), Circle.allCircels[1].getDiameter())) {
-            System.out.println("kokot");
+
             rectangleSimulation rectsim2 = new rectangleSimulation(2);
             rectsim2.start();
             StartStage.getInstance().setMessage("Please type username you want to have");

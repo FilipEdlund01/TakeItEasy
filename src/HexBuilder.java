@@ -51,20 +51,15 @@ public class HexBuilder {
 
     public void buildHexans(){
 
-        int width = 0;
-        int height = 0;
-        int index_line = 0;
+
         for (int i = 0; i < this.initLines.length; i++) {
-            int[] init_lines = HexBuilder.getInstance().initLines[index_line];
+            int[] init_lines = HexBuilder.getInstance().initLines[i];
 
-            if(height < Constants.HEIGHT.getValue() - HexCard.HEX_SIDE_SIZE * 4){
-                height += HexCard.HEX_SIDE_SIZE *2;
-            }else {
-                width += HexCard.HEX_SIDE_SIZE * 2;
-            }
 
-            HexCard.allHexans[i] = new HexCard(0, 50, init_lines, "images/hex"+init_lines[0]+init_lines[1]+init_lines[2]+".png");
-            index_line++;
+            HexCard.allHexans[i] = new HexCard(0, 50, init_lines,
+                    "images/hex"+init_lines[0]+init_lines[1]+init_lines[2]+".png");
+            System.out.println(init_lines[0]);
+
         }
     }
 
