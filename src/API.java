@@ -1,7 +1,28 @@
 import java.sql.*;
 //singelton pro udrzeni konzistence
 public class API {
-    public boolean UserFound;
+
+    private String Api = "jdbc";
+    private String conn = "mysql";
+    private String database = "dk-301_TakeItEasy";
+    private String host = "localhost";
+    //private String url = Api + ":" + conn +"://"+ host +"/" +database;
+    private String url = "jdbc:mysql://localhost:3306/easy";
+
+
+
+
+
+    //private String conn = "https://db.gyarab.cz/phpMyAdmin/db_structure.php?server=1&db=dk-301_TakeItEasy";
+    /*private String user="dk-301";
+    private String passwd = "iqFppJNo";*/
+
+    private String user="root";
+    private String passwd = "root";
+
+
+
+
 
     public boolean PasswordFound;
 
@@ -9,23 +30,13 @@ public class API {
         PasswordFound = passwordFound;
     }
 
-    public boolean isPasswordFound() {
-        return PasswordFound;
-    }
-
-    public void setUserFound(boolean userFound) {
-        UserFound = userFound;
-    }
-
-    public boolean isUserFound() {
-        return UserFound;
-    }
 
     private final static API api = new API();
 
     public void readFromDatabase() throws SQLException {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
+           // Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
+            Connection connection = DriverManager.getConnection(url, user, passwd);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from users");
             while (resultSet.next()) {
@@ -39,34 +50,7 @@ public class API {
 
     }
 
-    public void findUserInDatabase(String s){
 
-        int index =1;
-        String request = "SELECT * FROM users WHERE uid =" + "'" + s + "'" +";";
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(request);
-          /*  System.out.println(resultSet.getString("uid"));*/
-            while (resultSet.next()) {
-                index++;
-               // System.out.println(resultSet.getString("uid"));
-                setUserFound(true);
-            }
-            if(index==1){
-                System.out.println("user not found");
-                setUserFound(false);
-            }
-            statement.close();
-            connection.close();
-        }catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-
-
-
-    }
     public boolean CheckPassword(String username,String password){
         boolean b =true;
 
@@ -78,7 +62,7 @@ public class API {
 
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
+            Connection connection = DriverManager.getConnection(url, user, passwd);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(request);
             /*  System.out.println(resultSet.getString("uid"));*/
@@ -115,7 +99,7 @@ public class API {
 
 
             try {
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
+                Connection connection = DriverManager.getConnection(url,user, passwd);
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(request);
                 /*  System.out.println(resultSet.getString("uid"));*/
@@ -156,7 +140,7 @@ public class API {
 
 
             try {
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/easy", "root", "root");
+                 connection = DriverManager.getConnection(url, user, passwd);
                 statement = connection.prepareStatement(request);
 
                 int rowsAffected = statement.executeUpdate();

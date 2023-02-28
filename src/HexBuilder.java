@@ -68,37 +68,7 @@ public class HexBuilder {
         }
     }
 
-    private void addNeighborsToHexBoard() {
-        for (int x = 0; x < HexBoard.hexBoard.length; x++) {
-            for (int y = 0; y < HexBoard.hexBoard[x].length; y++) {
 
-                HexBoard.hexBoard[x][y].neighbours[0] = HexBoard.getHexanBoard(x, y - 1); // top
-                HexBoard.hexBoard[x][y].neighbours[1] = HexBoard.getHexanBoard(x, y + 1); // bottom
-
-
-                if(x < 2) {
-                    HexBoard.hexBoard[x][y].neighbours[2] = HexBoard.getHexanBoard(x + 1, y); // right top
-                    HexBoard.hexBoard[x][y].neighbours[3] = HexBoard.getHexanBoard(x + 1, y + 1); // right bottom
-                    HexBoard.hexBoard[x][y].neighbours[4] = HexBoard.getHexanBoard(x - 1, y - 1); // left top
-                    HexBoard.hexBoard[x][y].neighbours[5] = HexBoard.getHexanBoard(x - 1, y); // left bottom
-
-                }else if(x == 2){
-                    HexBoard.hexBoard[x][y].neighbours[2] = HexBoard.getHexanBoard(x + 1, y - 1);
-                    HexBoard.hexBoard[x][y].neighbours[3] = HexBoard.getHexanBoard(x + 1, y);
-                    HexBoard.hexBoard[x][y].neighbours[4] = HexBoard.getHexanBoard(x - 1, y - 1);
-                    HexBoard.hexBoard[x][y].neighbours[5] = HexBoard.getHexanBoard(x - 1, y);
-
-
-                }else{
-                    HexBoard.hexBoard[x][y].neighbours[2] = HexBoard.getHexanBoard(x + 1, y - 1);
-                    HexBoard.hexBoard[x][y].neighbours[3] = HexBoard.getHexanBoard(x + 1, y);
-                    HexBoard.hexBoard[x][y].neighbours[4] = HexBoard.getHexanBoard(x - 1, y);
-                    HexBoard.hexBoard[x][y].neighbours[5] = HexBoard.getHexanBoard(x - 1, y + 1);
-                }
-            }
-
-        }
-    }
 
     public void buildHexBoard(){
 
@@ -126,7 +96,7 @@ public class HexBuilder {
             xCords += HexCard.HEX_SIDE_SIZE * 1.5;
         }
 
-        this.addNeighborsToHexBoard();
+
     }
 
 

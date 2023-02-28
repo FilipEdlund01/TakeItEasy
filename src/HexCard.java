@@ -20,9 +20,6 @@ public class HexCard extends Hex {
 
 
 
-    public final static int LINE_UP_INDEX = 0;
-    public final static int LINE_RIGHT_DOWN_INDEX = 1;
-    public final static int LINE_LEFT_DOWN_INDEX = 2;
 
 
     public HexCard(int xCords, int yCords, int[] lines, String imageString) {

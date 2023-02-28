@@ -13,11 +13,7 @@ public class HexBoard extends Hex{
 
     HexBoard[] neighbours = new HexBoard[6];
 
-    final static int TOP_NEIGHBOUR = 0;
-    final static int BOTTOM_NEIGHBOUR = 1;
-    final static int RIGHT_TOP_NEIGHBOUR = 2;
-    final static int RIGHT_BOTTOM_NEIGHBOUR = 3;
-    final static int LEFT_TOP_NEIGHBOUR = 4;
+
 
 
 
@@ -47,28 +43,7 @@ public class HexBoard extends Hex{
         return color;
     }
 
-    public static int evaluateLine(int x, int y, int index){
-        HexBoard currentHexBoard = HexBoard.getHexanBoard(x, y);
-        if(currentHexBoard == null) return -1;
 
-        int score = 0;
-
-        boolean isValid = true;
-        while(currentHexBoard != null){
-            if(currentHexBoard.occupiedHexCard == null ) return -1;
-            if(currentHexBoard.occupiedHexCard.getLines()[HexBuilder.LINE_UP_INDEX] != currentHexBoard.neighbours[HexBoard.TOP_NEIGHBOUR].occupiedHexCard.getLines()[HexBuilder.LINE_UP_INDEX]){
-                isValid = false;
-                break;
-            }
-           currentHexBoard = currentHexBoard.neighbours[HexBoard.BOTTOM_NEIGHBOUR];
-       };
-       if(isValid){
-           score++;
-       }
-       return score;
-
-
-    }
     public static int evaluateHexLine(int x , int y, int index){
         HexBoard currentHexboard = HexBoard.getHexanBoard(x,y);
         return currentHexboard.occupiedHexCard.getLines()[index];

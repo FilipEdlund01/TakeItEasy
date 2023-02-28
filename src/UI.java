@@ -9,14 +9,11 @@ public class UI extends PApplet {
 
     private static  boolean mouseOverCircle1 = false;
     private static  boolean mouseOverCircle2 = false;
-    Rectangle rectangle = new Rectangle(0,0,0,0);
-    int R;
-    int G;
-    int B;
+
 
 
     public int count;
-    int n;
+
 
 
     static boolean[] forbidenNumbers = new boolean[27];
@@ -49,12 +46,7 @@ public class UI extends PApplet {
     int cursorBlink = 0;
     public int rectX;
 
-    public void setRectX(int rectX) {
-        this.rectX = rectX;
-    }
-    /*public static void setRectX(int rectX) {
-        this.rectX = rectX;
-    }*/
+
 private final static UI ui = new UI();
 
 public static UI getInstance(){
@@ -224,28 +216,8 @@ public static UI getInstance(){
 
     @Override
     public void mouseClicked() {
-        if (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[0].getCordX(), Circle.allCircels[0].getCordY(), Circle.allCircels[0].getDiameter())) {
+  CheckIfClickedOnCircle();
 
-            rectangleSimulation rectsim1 = new rectangleSimulation(1);
-            rectsim1.start();
-            // showMainStage = true;
-            StartStage.getInstance().setMessage("Please type your username and hit enter");
-
-            firstCircleClicked=true;
-            secondCircleClicked=false;
-
-
-        }
-        if (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[1].getCordX(), Circle.allCircels[1].getCordY(), Circle.allCircels[1].getDiameter())) {
-            System.out.println("kokot");
-            rectangleSimulation rectsim2 = new rectangleSimulation(2);
-            rectsim2.start();
-            StartStage.getInstance().setMessage("Please type username you want to have");
-            firstCircleClicked=false;
-            secondCircleClicked=true;
-          //  API.getInstance().CheckPassword("filip","kk");
-            // showMainStage = true;
-        }
 
     }
 
@@ -488,10 +460,36 @@ public static UI getInstance(){
 
 
 
-            System.out.println(StartStage.getInstance().getMessage());
+
 
         }
 
+
+    }
+
+    public void CheckIfClickedOnCircle(){
+        if (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[0].getCordX(), Circle.allCircels[0].getCordY(), Circle.allCircels[0].getDiameter())) {
+
+            rectangleSimulation rectsim1 = new rectangleSimulation(1);
+            rectsim1.start();
+            // showMainStage = true;
+            StartStage.getInstance().setMessage("Please type your username and hit enter");
+
+            firstCircleClicked=true;
+            secondCircleClicked=false;
+
+
+        }
+        if (StartStage.getInstance().overCircle(mouseX, mouseY, Circle.allCircels[1].getCordX(), Circle.allCircels[1].getCordY(), Circle.allCircels[1].getDiameter())) {
+            System.out.println("kokot");
+            rectangleSimulation rectsim2 = new rectangleSimulation(2);
+            rectsim2.start();
+            StartStage.getInstance().setMessage("Please type username you want to have");
+            firstCircleClicked=false;
+            secondCircleClicked=true;
+            //  API.getInstance().CheckPassword("filip","kk");
+            // showMainStage = true;
+        }
 
     }
     private void testMainSTAGE(){

@@ -11,9 +11,6 @@ public class Circle {
         return CIRCLE_COLOR_2;
     }
 
-    public static Circle[] getAllCircels() {
-        return allCircels;
-    }
 
     public int[] getDefaultCircleColor() {
         return DEFAULT_CIRCLE_COLOR;
